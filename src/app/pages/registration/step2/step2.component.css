@@ -1,0 +1,6 @@
+.service-photo {
+  position: absolute;
+  left: 0;
+  background: no-repeat center / cover;
+  width: 100%;
+}

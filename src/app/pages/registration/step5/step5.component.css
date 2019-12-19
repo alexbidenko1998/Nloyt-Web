@@ -1,0 +1,8 @@
+.right {
+  float: right;
+  margin-left: 5px;
+}
+.custom-control-input:checked~.custom-control-label::before {
+  border-color: gray;
+  background-color: gray;
+}

@@ -1,0 +1,13 @@
+.left {
+  float: left;
+  margin-right: 5px;
+}
+.right {
+  float: right;
+  margin-left: 5px;
+}
+.photo {
+  background: no-repeat center / cover;
+  position: absolute;
+  left: 0;
+}

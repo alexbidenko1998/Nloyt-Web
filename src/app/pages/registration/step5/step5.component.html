@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <form>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="isFreeYes" name="isFree" class="custom-control-input">
+      <label class="custom-control-label" for="isFreeYes">Сервисный центр оказывает услуги онлайн диагностически бесплатно.</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="isFreeNo" name="isFree" class="custom-control-input">
+      <label class="custom-control-label" for="isFreeNo">Сервисный центр оказывает платные услуги онлайн диагностически.</label>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-auto">
+        <p>Платежные реквизиты</p>
+      </div>
+      <div class="col">
+        <hr>
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование СЦ">
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="БИК">
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Расчетный счет">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-auto" style="min-width: 197px;">
+        <p>Агентский договор</p>
+      </div>
+      <div class="col">
+        <hr>
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="ФИО уполномоченного подписанта">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Должность">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Основание полномочий">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Номер документа основания">
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Адрес почтовой корреспонденции">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="ФИО контактного лица">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Телефон контактного лица">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Электронная почта контактного лица">
+            </div>
+          </div>
+          <div class="col-12 col-md-4 pb-3">
+            <div class="form-group">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="Сгенерировать агентский договор">
+            </div>
+
+            <a href="" class="d-block my-3 text-center">№RU-002-0056-AA01.pdf</a>
+
+            <div class="border mt-4 text-center" style="height: 98px; line-height: 98px;">Загрузить подписанный договор</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-inline-block right mt-5 pb-5">
+      <button type="button" class="btn btn-outline-secondary rounded-0 px-5">Save</button>
+      <button type="button" class="btn btn-success rounded-0 px-5" (click)="router.navigateByUrl('registration/6')">Save and Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,66 @@
+<div class="container-fluid px-5">
+  <p class="text-start-info">
+    Сформируйте перечень онлайн услуг на базе Вашего диагностического оборудования, определите стоимость услуг и их продолжительность. <br>
+    Выберете наименования из имеющегося справочника. В случае отсутствия предлагаемой Вами услаги, создайте дополнительный перечень, с указанием всей необходимой информации. <br>
+    В случае необходимости добавления готовых справочников услуг, воспользуйтесь инструментом mass additions (см. pop-up list)
+  </p>
+
+  <button class="btn btn-outline-secondary py-1" (click)="cloneNewRow()"><i class="material-icons left">add</i>Добавить</button>
+  <button class="btn btn-outline-secondary py-1" (click)="removeRow()"><i class="material-icons left">close</i>Удалить</button>
+</div>
+
+<table class="table custom-table mt-3">
+  <thead>
+  <tr>
+    <th scope="col">Код</th>
+    <th scope="col">Наименование</th>
+    <th scope="col">Продолжительность</th>
+    <th scope="col">Стоимость</th>
+    <th scope="col">Фото</th>
+    <th scope="col">Оборудование</th>
+    <th scope="col">Автомобиль</th>
+    <th scope="col">Описание услуги</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let service of services">
+    <td>A8a7</td>
+    <td>Полный накал габаритных колец</td>
+    <td>
+      <div class="form-group m-0">
+        <select class="form-control rounded-0 text-center" size="1">
+          <option>10 мин</option>
+          <option selected>15 мин</option>
+          <option>20 мин</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <div class="input-group form-group m-0">
+        <input type="number" class="form-control text-right pr-0" style="border-right: 0;">
+        <div class="input-group-append">
+          <span class="input-group-text" style="background: transparent; border-left: 0;">Р</span>
+        </div>
+      </div>
+    </td>
+    <td>
+      <button class="btn btn-block btn-outline-secondary">добавить</button>
+    </td>
+    <td>
+      <input type="text" class="form-control">
+    </td>
+    <td>
+      <input type="text" class="form-control" placeholder="Указать применимый авто">
+    </td>
+    <td>
+      Регулировка яркости габаритных огней (колец) вокруг основного света фар, который стали символом, отличающим баварцев от всего
+      <a class="description-more" href="">еще</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="d-inline-block right px-2 pb-5">
+  <button class="btn btn-outline-secondary rounded-0 px-5" (click)="router.navigateByUrl('registration/5')">Save</button>
+  <button class="btn btn-success rounded-0 px-5" (click)="router.navigateByUrl('registration/5')">Save and Submit</button>
+</div>

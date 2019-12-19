@@ -1,0 +1,47 @@
+button {
+  outline: none;
+}
+.row-active {
+  background-color: rgba(107, 163, 15, 0.2);
+}
+.row-accept-now td {
+  position: relative;
+  z-index: 20;
+  background-color: white!important;
+}
+.background-black {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background: transparent;
+}
+.background-black.active {
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.72);
+
+  transition-property: background, z-index;
+  transition-duration: 3s;
+}
+*[mat-row] {
+  cursor: pointer;
+
+  transition: box-shadow .3s;
+}
+*[mat-row]:not(.row-accept-now):hover {
+  transform: scale(1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.calendar-icon {
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
+.download-file {
+  width: 19px;
+  height: 19px;
+  display: block;
+  border-radius: 50%;
+}

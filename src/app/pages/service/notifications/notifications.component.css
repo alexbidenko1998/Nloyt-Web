@@ -1,0 +1,21 @@
+button {
+  outline: none;
+}
+th.gray-table-cell {
+  background: rgba(196, 196, 196, 0.2);
+}
+td.gray-table-cell {
+  background: rgba(196, 196, 196, 0.1);
+}
+.row-active {
+  background-color: rgba(107, 163, 15, 0.2);
+}
+*[mat-row] {
+  cursor: pointer;
+
+  transition: box-shadow .3s;
+}
+*[mat-row]:hover {
+  transform: scale(1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

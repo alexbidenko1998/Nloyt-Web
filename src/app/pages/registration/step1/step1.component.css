@@ -1,0 +1,17 @@
+.text-registration-info {
+  color: gray;
+}
+.text-registration-info h5 {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+.text-registration-info p {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+}
+.right {
+  float: right;
+  margin-left: 5px;
+}

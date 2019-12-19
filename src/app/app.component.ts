@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Nloyt-Web';
+
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang(localStorage.getItem('defaultLang') || window.navigator.language ||
+      // @ts-ignore
+      window.navigator.systemLanguage || window.navigator.userLanguage);
+  }
 }

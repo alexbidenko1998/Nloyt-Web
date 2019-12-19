@@ -1,0 +1,198 @@
+<div class="container-fluid body" *ngIf="requestService.device">
+  <div class="row">
+    <div class="col-auto first-col">
+      <div class="miles-months-container">
+        <p class="mm-hint">OEM warranty &  regular service consumtion availability </p>
+
+        <div class="mm-switch-container">
+          <div class="position-relative h-100">
+            <button class="mm-switch-button" [style.marginLeft]="isMilesOrMonths ? '0' : '70px'" (click)="mmSwitch(0)"></button>
+
+            <div class="position-absolute h-100" style="top: 0;">
+              <span class="mm-variant" [style.color]="isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(1)">miles</span>
+              <span class="mm-variant" style="margin-left: 70px;" [style.color]="!isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(2)">months</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="miliage-line">
+        <div class="miliage-current" [style.width]="(isMilesOrMonthsColor ? requestService.device.data.miliage / 135000 : getWarranty() / 34) * 100 + '%'"></div>
+        <div class="max-value-line" [style.left]="(isMilesOrMonthsColor ? 100000 / 135000 : 24 / 34) * 100 + '%'"></div>
+
+        <span class="period-value" style="left: calc(100% / 18);">{{isMilesOrMonthsColor ? 15 : 4}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9);">{{isMilesOrMonthsColor ? 30 : 8}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 2);">{{isMilesOrMonthsColor ? 45 : 12}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 3);">{{isMilesOrMonthsColor ? 60 : 16}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 4);">{{isMilesOrMonthsColor ? 75 : 18}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 5);">{{isMilesOrMonthsColor ? 90 : 22}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 6);">{{isMilesOrMonthsColor ? 105 : 26}}</span>
+        <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 7);">{{isMilesOrMonthsColor ? 120 : 30}}</span>
+      </div>
+
+      <div class="custom-card vehilce-status-container unwork">
+        <h5 class="vehilce-status">Vehicle status</h5>
+        <span class="vehilce-last-update">Last update: 02:45 min ago</span>
+
+        <div class="ping-container">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/ping_level.svg" alt="Ping Level" class="ping-level-icon">
+            <span class="ping-level-text">Ping 97</span>
+            <span class="ping-status">IGNITION OFF</span>
+          </div>
+        </div>
+
+        <div class="car-params-container" style="right: 30px;">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/car_params_5.svg" alt="" class="car-params-circle">
+            <img src="/assets/service/request/vehicle/icon_car_params_5.png" alt="" class="car-params-icon">
+            <span class="car-params-value">20%</span>
+          </div>
+        </div>
+        <div class="car-params-container" style="right: 97px;">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/car_params_4.svg" alt="" class="car-params-circle">
+            <img src="/assets/service/request/vehicle/icon_car_params_4.png" alt="" class="car-params-icon">
+            <span class="car-params-value">35%</span>
+          </div>
+        </div>
+        <div class="car-params-container" style="right: 165px;">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/car_params_3.svg" alt="" class="car-params-circle">
+            <img src="/assets/service/request/vehicle/icon_car_params_3.png" alt="" class="car-params-icon">
+            <span class="car-params-value">1</span>
+          </div>
+        </div>
+        <div class="car-params-container" style="right: 232px;">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/car_params_2.svg" alt="" class="car-params-circle">
+            <img src="/assets/service/request/vehicle/icon_car_params_2.png" alt="" class="car-params-icon">
+            <span class="car-params-value">35%</span>
+          </div>
+        </div>
+        <div class="car-params-container" style="right: 300px;">
+          <div class="position-relative h-100">
+            <img src="/assets/service/request/vehicle/car_params_1.svg" alt="" class="car-params-circle">
+            <img src="/assets/service/request/vehicle/icon_car_params_1.png" alt="" class="car-params-icon">
+            <span class="car-params-value">65%</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="custom-card" style="width: 100%; overflow: hidden;" *ngIf="errorsTableData">
+        <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell text-left">Alert title</th>
+          <th class="mat-header-cell text-right">Treshold</th>
+          <th class="mat-header-cell text-right">Value</th>
+          <th class="mat-header-cell text-right">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="mat-row" *ngFor="let error of errorsTableData">
+          <td class="text-left mat-cell">{{error.title}}</td>
+          <td class="text-right mat-cell">{{error.treshold}}</td>
+          <td class="text-right mat-cell" style="font-weight: bold;">{{error.value}}</td>
+          <td class="text-right mat-cell">{{error.date | date: 'HH:mm MM/dd/yy'}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <button matRipple class="outline-0 load-more" (click)="loadMore()" *ngIf="!isFinish">Load more</button>
+    </div>
+
+    <div class="col-auto second-col">
+      <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
+        <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell text-left" [class.border-0]="!isShowFirstTable">Resources details</th>
+          <th class="mat-header-cell text-right" [class.border-0]="!isShowFirstTable">
+            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowFirstTable = !isShowFirstTable"
+                 [class.rotate-icon]="isShowFirstTable">
+          </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="isShowFirstTable">
+        <tr class="mat-row gray-tr">
+          <td class="text-left mat-cell">Current millage, miles</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage()}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Warranty resource, miles</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage()}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Warranty resource, months</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getWarranty()}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Regular service resource, miles</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage(75000)}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Regular service resource, days</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getWarranty() * 31}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="mat-table custom-card" style="width: 100%; overflow: hidden;">
+        <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell text-left" [class.border-0]="!isShowSecondTable">Specification</th>
+          <th class="mat-header-cell text-right" [class.border-0]="!isShowSecondTable">
+            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowSecondTable = !isShowSecondTable"
+                 [class.rotate-icon]="isShowSecondTable">
+          </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="isShowSecondTable">
+        <tr class="mat-row gray-tr">
+          <td class="text-left mat-cell">VIN</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getVin()}}</td>
+        </tr>
+        <tr class="mat-row gray-tr">
+          <td class="text-left mat-cell">Number</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.pin}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Make</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.make}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Model</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.model}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Generation</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">X253</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Year</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getDate()}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Modification</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">GLC300 4MATIC 2.0 245 hp</td>
+        </tr>
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Package</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">61</td>-->
+<!--        </tr>-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Color</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">61</td>-->
+<!--        </tr>-->
+        <tr class="mat-row">
+          <td class="text-left mat-cell">Series</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">Crossover</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="text-left mat-cell">First registration</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{getDate()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

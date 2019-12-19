@@ -1,0 +1,55 @@
+<div class="container-fluid pb-5">
+  <div class="row">
+    <div class="col-12 col-md-4 border p-4">
+      <div class="input-group form-group">
+        <div class="input-group-prepend col-8 p-0">
+          <span class="input-group-text rounded-0 w-100" style="background: transparent;">Количество Gleem 4G</span>
+        </div>
+        <input type="text" class="form-control rounded-0 text-center col-4" name="gleemCount1">
+      </div>
+      <div class="input-group form-group">
+        <div class="input-group-prepend col-8 p-0">
+          <span class="input-group-text rounded-0 w-100" style="background: transparent;">Количество Gleem 4G</span>
+        </div>
+        <input type="text" class="form-control rounded-0 text-center col-4" name="gleemCount2">
+      </div>
+
+      <div class="form-group mt-5">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Адрес доставки" name="address">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Способ оплаты" name="payType">
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4 border text-purchase-info py-3">
+      <h5>Important notice</h5>
+      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+      <p>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance.</p>
+      <p>The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32</p>
+    </div>
+
+    <div class="col-12 col-md-4 border">
+      <img class="w-100" alt="" src="/assets/purchase_1.png">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="d-none d-md-block col-4"></div>
+
+    <div class="col-12 col-md-4 mt-5">
+      <div class="row">
+        <div class="col-6">
+          <button class="btn btn-block btn-outline-secondary rounded-0" onclick="location.href = '/service/notifications'">Skip</button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-block btn-outline-secondary rounded-0">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4 mt-5">
+      <button class="btn btn-success rounded-0 px-5" (click)="sendPurchase()">Save and Submit</button>
+    </div>
+  </div>
+</div>

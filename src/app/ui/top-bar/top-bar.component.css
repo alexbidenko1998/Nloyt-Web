@@ -1,0 +1,53 @@
+.registration-top-bar td {
+  background: #f2f2f2;
+  vertical-align: middle!important;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+}
+.registration-top-bar td:not(:first-child) {
+  border-left: 4px solid transparent;
+}
+.registration-top-bar td:not(:last-child) {
+  border-right: 4px solid transparent;
+}
+.registration-top-bar td:not(:first-child)::before {
+  content: '';
+  width: calc(44px / 1.414);
+  height: calc(44px / 1.414);
+  background: white;
+  display: block;
+  position: absolute;
+  left: calc(-22px / 1.414);
+  top: 6px;
+  z-index: 1;
+  transform: rotate(45deg);
+}
+.registration-top-bar td:not(:last-child)::after {
+  content: '';
+  width: calc(44px / 1.414);
+  height: calc(44px / 1.414);
+  background: #f2f2f2;
+  display: block;
+  position: absolute;
+  right: calc(-22px / 1.414);
+  top: 6px;
+  z-index: 2;
+  transform: rotate(45deg);
+}
+.registration-top-bar p {
+  margin: 0;
+  padding-left: 6px;
+}
+@media (min-width: 1800px) {
+  .d-xxl-inline-block {
+    display: inline-block!important;
+  }
+}
+.active {
+  background: #a6a6a6!important;
+  color: white;
+}
+.active::after {
+  background: #a6a6a6!important;
+}

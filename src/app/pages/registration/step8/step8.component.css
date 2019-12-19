@@ -1,0 +1,13 @@
+.text-purchase-info {
+  color: gray;
+}
+.text-purchase-info h5 {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+.text-purchase-info p {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+}

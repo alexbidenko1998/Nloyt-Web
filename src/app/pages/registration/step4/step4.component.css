@@ -1,0 +1,35 @@
+.left {
+  float: left;
+  margin-right: 5px;
+}
+.right {
+  float: right;
+  margin-left: 5px;
+}
+.text-start-info {
+  font-size: 13px;
+}
+th {
+  font-weight: 400;
+  color: gray;
+}
+.description-more {
+  color: gray;
+}
+.description-more:hover {
+  color: gray;
+}
+td {
+  vertical-align: middle!important;
+}
+.custom-table tbody tr:nth-of-type(even) {
+  background-color: rgba(0,0,0,.05);
+}
+.bootstrap-select > .dropdown-toggle {
+  background: transparent;
+  border: 1px solid #ced4da;
+}
+.dropdown-item.active {
+  background-color: #ced4da;
+  color: #212529;
+}

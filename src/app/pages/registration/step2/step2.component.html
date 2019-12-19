@@ -1,0 +1,149 @@
+<div class="container-fluid pb-5">
+  <form class="row" [formGroup]="uploadForm">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование юридического лица"
+               formControlName="legalEntityName" required
+               [class.is-invalid]="uploadForm.get('legalEntityName').invalid && uploadForm.get('legalEntityName').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Регистрационный номер юр. лица"
+               formControlName="legalEntityNumber" required
+               [class.is-invalid]="uploadForm.get('legalEntityNumber').invalid && uploadForm.get('legalEntityNumber').touched">
+      </div>
+      <div class="pt-3" style="height: 162px;">
+        <label class="form-group form-check checkbox-container">
+          <input type="checkbox" class="form-check-input" id="officialDealer" formControlName="isOfficialDealer">
+          <span class="checkmark"></span>
+          <label class="form-check-label ml-0" for="officialDealer">Официальный дилер марки</label>
+        </label>
+        <label class="form-group form-check checkbox-container">
+          <input type="checkbox" class="form-check-input" id="inHolding" formControlName="isInHolding">
+          <span class="checkmark"></span>
+          <label class="form-check-label ml-0" for="inHolding">Компания в рамках холдинга</label>
+          <small class="form-text text-muted">Уточните, возможно кто-то из Ваших коллег уже создал профайл сети Ваших СЦ</small>
+        </label>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование головного холдинга"
+               formControlName="holdingName" required
+               [class.is-invalid]="uploadForm.get('holdingName').invalid && uploadForm.get('holdingName').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Интернет сайт головного холдинга"
+               formControlName="holdingSite" required
+               [class.is-invalid]="uploadForm.get('holdingSite').invalid && uploadForm.get('holdingSite').touched">
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование сервисного центра (СЦ) (если отличается от юр. лица)"
+               formControlName="serviceName" required
+               [class.is-invalid]="uploadForm.get('serviceName').invalid && uploadForm.get('serviceName').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Фактический адрес СЦ"
+               formControlName="serviceAddress" required (input)="addressValidator()"
+               [class.is-invalid]="(uploadForm.get('serviceAddress').invalid || !isValidAddress) && uploadForm.get('serviceAddress').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center w-100" placeholder="Телефон СЦ"
+               formControlName="servicePhone" required id="phone"
+               [class.is-invalid]="uploadForm.get('servicePhone').invalid && uploadForm.get('servicePhone').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Время работы СЦ"
+               formControlName="serviceTime" required
+               [class.is-invalid]="uploadForm.get('serviceTime').invalid && uploadForm.get('serviceTime').touched">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 text-center" placeholder="Интернет сайт СЦ"
+               formControlName="serviceSite" required
+               [class.is-invalid]="uploadForm.get('serviceSite').invalid && uploadForm.get('serviceSite').touched">
+      </div>
+      <div class="form-group" [class.is-invalid]="uploadForm.get('autoMarks').invalid && uploadForm.get('autoMarks').touched">
+        <select multiple class="form-control rounded-0 text-center" size="1" title="Марки обслуживаемых автомобилей"
+                formControlName="autoMarks" required id="autoMarks">
+          <option>Японские</option>
+          <option>Немецкие</option>
+          <option>Toyota</option>
+          <option>BMW</option>
+          <option>Mercedes-Benz</option>
+          <option>АВТОВАЗ</option>
+        </select>
+      </div>
+      <div class="form-group" [class.is-invalid]="uploadForm.get('equipmentsAndSoftware').invalid && uploadForm.get('equipmentsAndSoftware').touched">
+        <select multiple class="form-control rounded-0 text-center" size="1" title="Диагностическое оборудование / ПО"
+                formControlName="equipmentsAndSoftware" required id="equipmentsAndSoftware">
+          <option>BOSCH</option>
+          <option>Vector</option>
+          <option>Delphi</option>
+          <option>Softing</option>
+          <option>ISTA</option>
+          <option>VCDS</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <label class="form-group form-control rounded-0 py-0 px-3 w-100" style="min-height: 92px; background-image: none!important;"
+             [class.is-invalid]="uploadForm.get('servicePhotos').invalid && uploadForm.get('servicePhotos').touched">
+        <div class="row" style="min-height: 92px;">
+          <div class="col-8 text-center position-relative" style="min-height: 92px;">
+            <span class="position-absolute w-100 px-3" style="top: 50%; transform: translateY(-50%); left: 0;">Добавить фотографии СЦ</span>
+            <div class="service-photo" id="photo1" style="top: 0; height: 100%;"></div>
+          </div>
+          <div class="col-4 border-left p-0 position-relative">
+            <div class="service-photo" id="photo2" style="top: 0; height: 50%;"></div>
+            <hr class="position-absolute w-100 m-0" style="top: 50%; transform: translateY(-50%); left: 0;">
+            <div class="service-photo" id="photo3" style="top: 50%; height: 50%;"></div>
+          </div>
+        </div>
+        <input type="file" multiple accept="image/*" class="d-none" id="servicePhotos" name="servicePhotos[]" formControlName="servicePhotos" (change)="changeImage($event)">
+      </label>
+      <div class="form-group">
+        <textarea class="form-control rounded-0 text-center" placeholder="Workshop description (optional)" style="min-height: 92px;"
+                  formControlName="description" [class.is-invalid]="uploadForm.get('description').invalid && uploadForm.get('description').touched"></textarea>
+      </div>
+      <small class="form-text text-muted mb-3" style="min-height: 92px; font-size: 60%;">
+        Один ресивер выводит в онлайн одно диагностическое оборудование.
+        Параллельная работа нескольких диагностических устройств на одном ресивере невозможна.
+        Для работы с двух рабочих мест инженеров диагностов необходима установка второго ресивера.
+      </small>
+      <div class="form-group">
+        <div class="input-group form-group mb-2">
+          <div class="input-group-prepend col-8 p-0">
+            <div class="input-group-text rounded-0 w-100" style="background: transparent;">Количество ресиверов</div>
+          </div>
+          <input type="number" class="form-control rounded-0 text-center col-4" min="0" step="1"
+                 formControlName="receiversCount" required
+                 [class.is-invalid]="uploadForm.get('receiversCount').invalid && uploadForm.get('receiversCount').touched">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4 pl-4">
+      <label class="form-group form-check mb-0 checkbox-container">
+        <input type="checkbox" class="form-check-input" id="agreeWithCloudService"
+               formControlName="agreeWithCloudService" required
+               [class.is-invalid]="uploadForm.get('agreeWithCloudService').invalid && uploadForm.get('agreeWithCloudService').touched">
+        <span class="checkmark"></span>
+        <label class="form-check-label ml-0" for="agreeWithCloudService">Согласен с условиями использования NLOYT SaaS Cloud Service / условиями договора-оферты</label>
+      </label>
+      <label class="form-group form-check checkbox-container">
+        <input type="checkbox" class="form-check-input" id="agreeWithNVCD"
+               formControlName="agreeWithNVCD" required
+               [class.is-invalid]="uploadForm.get('agreeWithNVCD').invalid && uploadForm.get('agreeWithNVCD').touched">
+        <span class="checkmark"></span>
+        <label class="form-check-label ml-0" for="agreeWithNVCD">Согласен с условиями эксплуатации NLOYT NVCD-R и условиями доставки</label>
+      </label>
+
+      <div class="d-inline-block" style="float: right;">
+        <button type="button" class="btn btn-outline-secondary rounded-0 px-5">Save</button>
+        <input type="submit" class="d-none">
+        <button type="button" class="btn btn-success rounded-0 ml-3 px-4" (click)="makeSubmit()">Save and Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

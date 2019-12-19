@@ -1,0 +1,72 @@
+.services-container {
+  padding: 0 30px 30px;
+  width: 1180px;
+}
+.buttons-container {
+  height: 60px;
+  padding-top: 27px;
+  padding-left: 47px;
+}
+.buttons-container button, .buttons-container label {
+  height: 18px;
+  width: fit-content;
+  margin-right: 35px;
+  display: inline-block;
+  outline: none;
+  padding: 0;
+  min-width: initial;
+  background: transparent;
+  line-height: 0;
+  cursor: pointer;
+}
+.buttons-container button img {
+  height: 100%;
+}
+.mb-3px {
+  margin-bottom: 3px;
+}
+.basic-table-container .mat-header-row, .basic-table-container .mat-header-cell {
+  height: 47px!important;
+}
+.basic-table-container .mat-row, .basic-table-container .mat-cell {
+  height: 47px!important;
+}
+.basic-table-container .mat-footer-row, .basic-table-container .mat-footer-cell {
+  height: 49px!important;
+  border-top: 2px solid #AAAAAA;
+}
+.basic-table-container .mat-footer-cell {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  color: #111111;
+}
+textarea {
+  overflow: hidden;
+  width: 100%;
+  outline: none;
+  display: block;
+  border: 1px solid #aaaaaa;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+.low-color {
+  color: #6BA30F;
+}
+.high-color {
+  color: #FF0000;
+}
+.mat-header-cell:first-child, .mat-cell:first-child, .mat-footer-cell:first-child {
+  width: 47px;
+}
+.download-link {
+  color: #0054B9;
+  cursor: pointer;
+}
+.download-link:hover {
+  text-decoration: #0054B9;
+}

@@ -1,0 +1,143 @@
+body {
+  min-width: 1300px;
+  width: 100%;
+  overflow-x: hidden;
+  background: #F7F7F7;
+}
+#left-bar {
+  width: 68px;
+  height: 100%;
+  position: fixed;
+  background: white;
+  box-shadow: 0 0 6px 0 #ccc;
+  z-index: 20;
+  overflow-x: hidden;
+
+  transition: width .5s;
+}
+#left-bar hr {
+  width: calc(100% + 30px);
+  margin-left: -15px!important;
+}
+.left-bar-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.bar-title-container {
+  width: 322px!important;
+
+  transition: margin-left .5s;
+}
+#left-bar .row {
+  width: 254px;
+}
+#left-bar.open {
+  width: 254px;
+}
+.n-symbol {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  padding: 17px 0;
+  width: 68px;
+
+  color: #257D24;
+}
+.open .bar-title-container {
+  margin-left: -83px;
+}
+.site-title {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  color: #257D24;
+  padding: 17px 0;
+  width: 254px;
+}
+.row {
+  outline: none;
+}
+.menu-icon {
+  padding: 18px 22px;
+  text-align: center;
+  width: 68px;
+  cursor: pointer;
+}
+.menu-item-text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 60px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+  color: #000000;
+  cursor: pointer;
+
+  transition: margin-left .5s;
+}
+.open .menu-item-text {
+  margin-left: -6px;
+}
+.is-not-active {
+  display: block;
+}
+.is-active {
+  display: none;
+}
+.active .is-not-active {
+  display: none!important;
+}
+.active .is-active {
+  display: block!important;
+}
+.hide-menu-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+#main-container {
+  width: calc(100% - 68px);
+  margin-left: 68px;
+  padding: 0;
+
+  transition: width, margin-left .5s;
+}
+.profile-avatar {
+  position: fixed;
+  top: 13px;
+  right: 29px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: no-repeat center / cover;
+  cursor: pointer;
+  z-index: 10;
+}
+.notification-icon {
+  position: fixed;
+  top: 20px;
+  right: 95px;
+  width: 16px;
+  height: 19.5px;
+  z-index: 10;
+  cursor: pointer;
+}
+.lang-icon {
+  position: fixed;
+  top: 20px;
+  right: 140px;
+  width: 16px;
+  height: 19.5px;
+  z-index: 10;
+  cursor: pointer;
+}

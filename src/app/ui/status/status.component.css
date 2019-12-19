@@ -1,0 +1,33 @@
+button {
+  outline: none!important;
+}
+.px-15px {
+  padding: 0 15px;
+}
+@keyframes round-animation {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.round-animation {
+  animation: round-animation 1.4s infinite linear;
+}
+.buttons-text {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #333333;
+}
+.btn-success {
+  margin-left: 15px;
+}
+mat-icon {
+  width: 12px;
+}

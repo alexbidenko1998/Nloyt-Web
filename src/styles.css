@@ -1,1 +1,338 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+.unwork-c {
+  opacity: 0.4;
+}
+.unwork > * {
+  opacity: 0.4;
+}
+.bootstrap-select > .dropdown-toggle {
+  background: transparent;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+}
+.bootstrap-select .dropdown-menu li a span.check-mark {
+  border: 1px solid black!important;
+  padding: 0 5px 2px 6px;
+  border-radius: 2px;
+  position: absolute;
+  display: inline-block;
+  right: 15px;
+  top: 5px;
+}
+.bootstrap-select .bs-ok-default:after {
+  visibility: hidden;
+}
+.bootstrap-select .selected .bs-ok-default:after {
+  visibility: visible;
+  border-width: 0 0.20em 0.20em 0!important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 1300px!important; }
+
+.custom-card {
+  width: fit-content;
+  margin-right: 7px;
+  background: white;
+  box-shadow: 0 0 2px 0 #ccc;
+  border-radius: 10px;
+  padding: 0 8px;
+  min-width: 95px;
+  text-align: center;
+
+  transition: box-shadow .3s;
+}
+.active-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.card-title {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 8px;
+  line-height: 9px;
+  letter-spacing: 0.01em;
+  margin: 6px 0;
+  text-align: left;
+
+  color: #888888;
+}
+.card-number {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: 0.01em;
+
+  color: #707683;
+
+  padding: 9px 19px 9px 19px;
+}
+.card-data-number {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+.card-bottom {
+  height: 24px;
+  position: relative;
+}
+.card-bottom-time {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 8px;
+  line-height: 9px;
+  text-align: right;
+  letter-spacing: 0.01em;
+  color: #0054B9;
+
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+}
+.card-data-col {
+  line-height: 18px;
+  padding: 2px 0 0 0;
+}
+.card-bottom-arrow {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  cursor: pointer;
+}
+th {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  vertical-align: middle!important;
+  letter-spacing: 0.01em;
+  color: #888888;
+  opacity: 0.5;
+}
+.red-text {
+  color: #BB5130;
+}
+.blue-text {
+  color: #366ADA;
+}
+.green-text {
+  color: #44C150;
+}
+.brown-text {
+  color: #612222;
+}
+.custom-table-checkbox {
+  border: 2px solid #D5D5D5;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+}
+.custom-table-check {
+  background: transparent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  display: block;
+
+  transition: background .3s;
+}
+.check .custom-table-check {
+  background: #D5D5D5;
+}
+.fake-title-container {
+  height: 59px;
+}
+.checkbox-count {
+  border-radius: 4px;
+  font-family: Poppins, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 12px;
+  align-items: center;
+  letter-spacing: 0.01em;
+  color: white;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  margin: -6px auto auto;
+  border: 2px solid #adadad;
+  cursor: pointer;
+}
+.checkbox-count.active {
+  background: #adadad;
+}
+.title-container {
+  padding: 15px 33px 16px 33px;
+  background: white;
+  box-shadow: 0 0 4px 0 #ccc;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+  height: 60px;
+}
+th.mat-header-cell {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.01em;
+  color: #888888;
+  opacity: 0.5;
+}
+td.mat-cell {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.01em;
+  color: #333333;
+}
+.title {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0;
+}
+.outline-0 {
+  outline: none!important;
+}
+.mat-menu-content {
+  padding: 0!important;
+}
+.table-search > div {
+  padding: 0!important;
+}
+.table-search div, .table-search span {
+  background-color: transparent!important;
+  border: 0!important;
+}
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #6ba30f!important;
+}
+table {
+  overflow: hidden;
+}
+.table-search {
+  display: inline-block;
+  background: #FFFFFF;
+  border: 0.2px solid #CCCCCC;
+  box-sizing: border-box;
+  border-radius: 6px;
+  height: 30px;
+  padding-top: 3px;
+}
+.table-search input {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #333333;
+  display: block;
+}
+.table-search .mat-form-field-label {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  padding-top: 2px;
+  color: #333333;
+}
+.mat-checkbox-frame {
+  border-radius: 4px!important;
+}
+tr.mat-header-row {
+  height: 52px!important;
+}
+.is-invalid .bootstrap-select > .dropdown-toggle {
+  border-color: #dc3545;
+}
+.card-row .custom-card {
+  cursor: pointer;
+}
+button.mat-icon-button {
+  outline: none;
+}
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  display: none!important;
+}
+button[mat-button] {
+  color: #6A707E;
+}
+button.mat-menu-item {
+  border-bottom: 1px solid #EBEFF2;
+}
+.iti {
+  width: 100%;
+}
+.form-control.is-invalid, .was-validated .form-control:invalid {
+  background: #dc354533;
+}
+.mat-menu-trigger mat-icon {
+  line-height: 22px;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 2px #ceae1e;
+  background-color: wheat;
+  margin-top: 5px;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: -4px;
+  width: 5px;
+  height: 14px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+input:checked ~ .checkmark:after {
+  display: block;
+}
+.checkbox-container input {
+ display: none;
+}
+.checkbox-container label {
+  margin-left: -20px;
+}
+.mat-menu-panel {
+  min-height: initial!important;
+}
+mat-icon {
+  position: relative;
+}
+mat-icon img {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+}
+.mat-form-field-underline {
+  display: none;
+}

@@ -1,0 +1,98 @@
+<div id="left-bar" class="container">
+  <div class="left-bar-container">
+    <div class="row bar-title-container">
+      <div class="col n-symbol" style="height: 59px;">N</div>
+      <div class="col-auto site-title" style="height: 59px;">CWS SaaS Cloud</div>
+    </div>
+
+    <hr class="m-0">
+
+    <div class="row mt-3" routerLink="notifications" routerLinkActive="active" matRipple>
+      <div class="menu-icon">
+        <img class="w-100 is-not-active" src="/assets/notifications/menu_1.svg" alt="">
+        <img class="w-100 is-active" src="/assets/notifications/menu_1_active.svg" alt="">
+      </div>
+      <div class="col p-0">
+        <p class="menu-item-text">{{ 'service.menu.notifications' | translate }}</p>
+      </div>
+    </div>
+    <div class="row" routerLink="orders" routerLinkActive="active" matRipple>
+      <div class="menu-icon">
+        <img class="w-100 is-not-active" src="/assets/notifications/menu_2.svg" alt="">
+        <img class="w-100 is-active" src="/assets/notifications/menu_2_active.svg" alt="">
+      </div>
+      <div class="col p-0">
+        <p class="menu-item-text">{{ 'service.menu.orders' | translate }}</p>
+      </div>
+    </div>
+    <!--  <div class="row">-->
+    <!--    <div class="menu-icon">-->
+    <!--      <img class="w-100" src="/assets/notifications/menu_3.svg" alt="">-->
+    <!--    </div>-->
+    <!--    <div class="col p-0">-->
+    <!--      <p class="menu-item-text">Shifts & schedule</p>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div class="row">-->
+    <!--    <div class="menu-icon">-->
+    <!--      <img class="w-100" src="/assets/notifications/menu_4.svg" alt="">-->
+    <!--    </div>-->
+    <!--    <div class="col p-0">-->
+    <!--      <p class="menu-item-text">Reporting & analysis</p>-->
+    <!--    </div>-->
+    <!--  </div>-->
+
+    <!--  <hr class="m-0">-->
+
+    <!--  <div class="row mt-3">-->
+    <!--    <div class="menu-icon">-->
+    <!--      <img class="w-100" src="/assets/notifications/menu_5.svg" alt="">-->
+    <!--    </div>-->
+    <!--    <div class="col p-0">-->
+    <!--      <p class="menu-item-text">Settings</p>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div class="row">-->
+    <!--    <div class="menu-icon">-->
+    <!--      <img class="w-100" src="/assets/notifications/menu_6.svg" alt="">-->
+    <!--    </div>-->
+    <!--    <div class="col p-0">-->
+    <!--      <p class="menu-item-text">Support</p>-->
+    <!--    </div>-->
+    <!--  </div>-->
+
+    <!--  <hr class="m-0">-->
+
+    <!--  <div class="row mt-3">-->
+    <!--    <div class="menu-icon">-->
+    <!--      <img class="w-100" src="/assets/notifications/menu_7.svg" alt="">-->
+    <!--    </div>-->
+    <!--    <div class="col p-0">-->
+    <!--      <p class="menu-item-text">Supply chain management</p>-->
+    <!--    </div>-->
+    <!--  </div>-->
+
+    <div class="row hide-menu-container" matRipple (click)="toggleBar()">
+      <div class="menu-icon">
+        <img src="/assets/notifications/toggle-active.svg" alt="" style="width: 14px; height: 14px;">
+      </div>
+      <div class="col p-0">
+        <p class="menu-item-text" style="color: #333;">{{ 'service.menu.hide' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="user" class="profile-avatar" [style.backgroundImage]="'url(' + getAvatar() + ')'"></div>
+
+<div class="notification-icon">
+  <img src="/assets/orders/icon_notification.svg" alt="">
+</div>
+
+<div class="lang-icon" (click)="changeLang()">
+  <img src="/assets/notifications/planet.png" alt="">
+</div>
+
+<div class="container-fluid" id="main-container" style="background: #F7F7F7; min-height: 100%;">
+  <router-outlet></router-outlet>
+</div>

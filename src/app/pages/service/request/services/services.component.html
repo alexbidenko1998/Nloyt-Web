@@ -1,0 +1,177 @@
+<div class="services-container" *ngIf="requestService.device">
+  <div class="buttons-container unwork">
+    <button mat-flat-button>
+      <img src="/assets/request/integrations.png" alt="" style="width: 24px; height: 24px;">
+    </button>
+    <button mat-flat-button>
+      <img src="/assets/request/delete.png" alt="">
+    </button>
+    <button mat-flat-button>
+      <img src="/assets/request/success.png" alt="">
+    </button>
+  </div>
+  <div class="basic-table-container mb-3px">
+    <table mat-table [dataSource]="ordersData" class="custom-card w-100">
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef class="pl-0 pt-2 text-center" style="width: 40px;">
+          <mat-checkbox class="m-1"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element" class="pl-0 pt-2 text-center" style="width: 40px;">
+          <mat-checkbox class="m-1"></mat-checkbox>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="serviceDescription">
+        <th mat-header-cell *matHeaderCellDef>Service description</th>
+        <td mat-cell *matCellDef="let element" class="text-left">Full-fledged Computer diagnostics</td>
+        <td mat-footer-cell class="text-left" *matFooterCellDef>Total for ({{ordersData.length}}) services</td>
+      </ng-container>
+
+      <ng-container matColumnDef="approval">
+        <th mat-header-cell *matHeaderCellDef>Approval</th>
+        <td mat-cell *matCellDef="let element" class="text-left"></td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="edt">
+        <th mat-header-cell class="text-right" *matHeaderCellDef>EDT</th>
+        <td mat-cell *matCellDef="let element" class="text-right">20 m</td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>20 m</td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell class="text-right" *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element" class="text-right">$30</td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>$30</td>
+      </ng-container>
+
+      <ng-container matColumnDef="discount">
+        <th mat-header-cell class="text-right" *matHeaderCellDef>Discount</th>
+        <td mat-cell *matCellDef="let element" class="text-right">-</td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>0%</td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell class="text-right" *matHeaderCellDef>Total</th>
+        <td mat-cell *matCellDef="let element" class="text-right">$30</td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>$30</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+  </div>
+
+  <div class="buttons-container">
+    <button mat-flat-button>
+      <img src="/assets/request/integrations.png" alt="" style="width: 24px; height: 24px;" (click)="isRedactConclusion = true">
+    </button>
+    <button mat-flat-button>
+      <img src="/assets/request/delete.png" alt="" (click)="deleteConclusions()">
+    </button>
+<!--    <button mat-flat-button>-->
+<!--      <img src="/assets/request/edit.png" alt="">-->
+<!--    </button>-->
+    <button mat-flat-button *ngIf="isRedactConclusion" (click)="saveConclusion()">
+      <img src="/assets/request/done.png" alt="">
+    </button>
+  </div>
+  <div class="conclusion-table-container mb-3px">
+    <table mat-table [dataSource]="requestService.device.order.conclusions" class="custom-card w-100">
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="pl-0 pt-2 text-center" style="width: 40px; border-color: transparent;">
+          <mat-checkbox class="m-1" (change)="addConclusionToCheck(element.id)"
+                        [ngModel]="checkedConclusions.indexOf(element.id) !== -1"></mat-checkbox>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="conclusion">
+        <th mat-header-cell *matHeaderCellDef>Conclusion & summary</th>
+        <td mat-cell *matCellDef="let element" class="text-left" style="border-color: transparent;">{{element.text}}</td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>
+          <textarea matInput matTextareaAutosize [(ngModel)]="newConclusion.text"></textarea>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="risk">
+        <th mat-header-cell *matHeaderCellDef class="text-right" style="padding-right: 30px;">Risk</th>
+        <td mat-cell *matCellDef="let element" class="text-right pt-2" style="vertical-align: top; border-color: transparent; padding-right: 16px;">
+          <button class="pr-4 outline-0" mat-button [matMenuTriggerFor]="conclusionMenu"
+                  [class.low-color]="element.risk === 1" [class.high-color]="element.risk === 2">
+            {{element.risk === 1 ? 'Low' : 'High'}}
+            <mat-icon style="position: absolute; top: 8px;">
+              <img src="/assets/notifications/arrow_more.svg" alt="">
+            </mat-icon>
+          </button>
+
+          <mat-menu #conclusionMenu="matMenu" class="rounded-0">
+            <button class="outline-0" mat-menu-item
+                    (click)="element.risk = 1; requestService.updateOrderConclusions(element.id, element);">Low</button>
+            <button class="outline-0" mat-menu-item
+                    (click)="element.risk = 2; requestService.updateOrderConclusions(element.id, element);">High</button>
+          </mat-menu>
+        </td>
+        <td mat-footer-cell class="text-right" *matFooterCellDef>
+          <button class="pr-4 outline-0" mat-button [matMenuTriggerFor]="newConclusionMenu"
+                  [class.low-color]="newConclusion.risk === 1" [class.high-color]="newConclusion.risk === 2">
+            {{newConclusion.risk === 1 ? 'Low' : 'High'}}
+            <mat-icon style="position: absolute; top: 8px;">
+              <img src="/assets/notifications/arrow_more.svg" alt="">
+            </mat-icon>
+          </button>
+
+          <mat-menu #newConclusionMenu="matMenu" class="rounded-0">
+            <button class="outline-0" mat-menu-item (click)="newConclusion.risk = 1">Low</button>
+            <button class="outline-0" mat-menu-item (click)="newConclusion.risk = 2">High</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="conclusionsColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: conclusionsColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="conclusionsColumns; sticky: true" [class.d-none]="!isRedactConclusion"></tr>
+    </table>
+  </div>
+
+  <div class="buttons-container">
+    <label style="width: 18px;">
+      <img src="/assets/request/integrations.png" alt="">
+      <input type="file" (change)="requestService.uploadFilesToOrder($event)" class="d-none" multiple>
+    </label>
+    <button mat-flat-button>
+      <img src="/assets/request/delete.png" alt="" (click)="deleteFiles()">
+    </button>
+  </div>
+  <div class="basic-table-container">
+    <table mat-table [dataSource]="requestService.device.order.files" class="custom-card w-100">
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef class="pl-0 pt-1 text-center" style="width: 40px;">
+          <div class="checkbox-count" [class.active]="checkedFiles.length > 0" (click)="checkAllFiles()">{{checkedFiles.length}}</div>
+        </th>
+        <td mat-cell *matCellDef="let element" class="pl-0 pt-2 text-center" style="width: 40px;">
+          <mat-checkbox class="m-1" (change)="addFileToCheck(element.id)"
+                        [ngModel]="checkedFiles.indexOf(element.id) !== -1"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="file">
+        <th mat-header-cell *matHeaderCellDef>File</th>
+        <td mat-cell *matCellDef="let element" class="text-left">
+          <a class="download-link" (click)="serviceService.downloadFile(element.filename)">{{element.filename}}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="uploadDate">
+        <th style="width: 160px;" class="text-right" mat-header-cell *matHeaderCellDef>Upload date</th>
+        <td style="width: 160px;" class="text-right" mat-cell *matCellDef="let element">{{element.timestamp * 1000 | date: 'MM/dd/yyyy HH:mm'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="filesColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: filesColumns;"></tr>
+    </table>
+  </div>
+</div>

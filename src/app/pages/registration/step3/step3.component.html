@@ -1,0 +1,48 @@
+<div class="container-fluid pb-5">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <p class="text-device-info">
+        <b>STEP 1.</b>
+        Разместите NVCD-R в сухом и безопасном от ударов и повреждений месте, рядом с диагностическим оборудованием и компьютером (ноутбуком), с доступом к электропитанию 22 В.
+      </p>
+      <img class="w-100" src="/assets/add_device_1.png" alt="">
+    </div>
+    <div class="col-12 col-md-4">
+      <p class="text-device-info">
+        <b>STEP 2.</b>
+        Подключите устройство к сети питания, к сети интернет кабелем Ethernet и нажмите кнопку "Включить". Для полноценного ознакомления со спецификацией перейдите в раздел
+        <a href="" style="text-decoration: underline;">Support</a>
+      </p>
+      <img class="w-100" src="/assets/add_device_2.png" alt="">
+    </div>
+    <div class="col-12 col-md-4">
+      <p class="text-device-info">
+        <b>STEP 3.</b>
+        Дождитесь появления индикатора "Подключено к интернет Ethernet". Через некоторое время дождитесь появления индикатора, подключено к NLOYT Cloud Service.
+      </p>
+      <img class="w-100" src="/assets/add_device_3.png" alt="">
+    </div>
+
+    <div class="d-none d-md-block col-2"></div>
+
+    <div class="col-12 col-md-8 pt-5">
+      <p class="text-center text-device-info">
+        <b>STEP 4.</b>
+        Введите шестихначный PIN, полученный в комплекте с NVCD-R. Не выключайте устройство и не отключайте его от сети интернет пока не завершится процедура активации и появится сообщение и статусе активации.
+      </p>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <img class="w-100" src="/assets/add_device_4.png" alt="">
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border h-100 px-5">
+            <div class="form-group mt-5">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="NVCD-R PIN" id="devicePin">
+            </div>
+            <button class="btn btn-success btn-block rounded-0" (click)="addDevice()">Activate NVCD-R</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

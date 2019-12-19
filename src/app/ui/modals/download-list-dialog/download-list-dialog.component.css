@@ -1,0 +1,11 @@
+table {
+  box-shadow: none;
+  border-radius: 0;
+}
+.download-link {
+  color: #0054B9;
+  cursor: pointer;
+}
+.download-link:hover {
+  text-decoration: #0054B9;
+}

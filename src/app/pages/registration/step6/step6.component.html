@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <p>Добавьте пользователей системы и укажите параметры доступа в зависимости от решаемых задач.</p>
+  <p class="mb-4"><b>!Необходимо создание как минимум одного пользователя системы, отличного от администратора (регистратора).</b></p>
+
+  <button class="btn btn-outline-secondary py-1 mr-4" (click)="cloneNewEmployeesForm()"><i class="material-icons left">add</i>Добавить</button>
+  <button class="btn btn-outline-secondary py-1" (click)="removeEmployeesForm()"><i class="material-icons left">close</i>Удалить</button>
+
+  <div class="container-fluid mt-3">
+    <div *ngFor="let form of uploadForms; let i = index">
+      <form [formGroup]="form" class="row">
+        <div class="col-auto employees-number pl-0">Пользователь №{{i + 1}}</div>
+        <div class="col">
+          <hr>
+
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <input type="text" class="form-control rounded-0 text-center" placeholder="ФИО" formControlName="name"
+                       [class.is-invalid]="form.get('name').invalid && form.get('name').touched">
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-control rounded-0 text-center" placeholder="Телефон" formControlName="phone" [id]="'phone'+i"
+                       [class.is-invalid]="form.get('phone').invalid && form.get('phone').touched">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control rounded-0 text-center" placeholder="Электронная почта" formControlName="email"
+                       [class.is-invalid]="form.get('email').invalid && form.get('email').touched">
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование СЦ" formControlName="serviceName"
+                       [class.is-invalid]="form.get('serviceName').invalid && form.get('serviceName').touched">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control rounded-0 text-center" placeholder="Должность" formControlName="position"
+                       [class.is-invalid]="form.get('position').invalid && form.get('position').touched">
+              </div>
+              <div class="form-group text-center" [class.is-invalid]="form.get('roles').invalid && form.get('roles').touched">
+                <select multiple class="form-control rounded-0 text-center" size="1" required title="User role (access rights)" formControlName="roles" [id]="'roles' + i">
+                  <option>Администратор</option>
+                  <option>Владелец (Акционер)</option>
+                  <option>Руководитель СЦ</option>
+                  <option>Начальник слесарного цеха</option>
+                  <option>Мастер-приемщик</option>
+                  <option>Оператор колл-центра</option>
+                  <option>Инженер-диагност</option>
+                  <option>Аналитик</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4 pb-3">
+              <label class="h-100 form-control rounded-0 position-relative w-100 p-0" style="min-height: 130px;"
+                     [class.is-invalid]="form.get('photo').invalid && form.get('photo').touched">
+                <span class="position-absolute w-100 text-center text-secondary" style="left: 0; top: 50%; transform: translateY(-50%);">Добавьте фото сотрудника</span>
+                <input type="file" accept="image/*" (change)="changeImage($event, i)" class="d-none">
+                <span class="w-100 h-100 d-none photo" [id]="'photo' + i"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="d-inline-block right mt-5 pb-5">
+    <button class="btn btn-outline-secondary rounded-0 px-5">Save</button>
+    <button class="btn btn-success rounded-0 px-5 ml-5" (click)="sendEmployees()">Save and Submit</button>
+  </div>
+</div>

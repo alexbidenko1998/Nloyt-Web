@@ -1,0 +1,31 @@
+<div class="position-relative h-100-v">
+  <div class="container-fluid position-absolute block-vertical-center">
+    <div class="row">
+      <div class="col-12 col-md-9 col-lg-7 mx-auto">
+        <div class="border pb-5" style="padding: 0 20%;">
+          <div class="text-center">
+            <img src="/assets/logo.png" alt="Logo" class="img-fluid my-5">
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control rounded-0 text-center" placeholder="Email" [(ngModel)]="email"
+                   (keyup.enter)="passwordInput.focus()">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control rounded-0 text-center" placeholder="Password" [(ngModel)]="password"
+                   #passwordInput (keyup.enter)="singIn()">
+          </div>
+
+          <div class="mt-5" style="height: 24px;">
+            <button class="btn btn-success right px-5 rounded-0" (click)="singIn()">Sign in</button>
+          </div>
+
+          <div class="mt-5 mb-3 pr-3" style="height: 20px;">
+            <a routerLink="registration/1" class="left to-sing-up">Registration</a>
+            <a href="" class="right remind-password mt-1">Remind password</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

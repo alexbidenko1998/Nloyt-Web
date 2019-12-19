@@ -1,0 +1,49 @@
+<div class="fake-title-container"></div>
+<div class="title-container">
+  <h1 class="title" *ngIf="requestService.device">Request #RU-002-0056-20-05-{{requestService.device.order.id}}<span>|</span>{{getPageTitle()}}</h1>
+</div>
+<div class="buttons-panel" *ngIf="requestService.device">
+  <div class="top-left-buttons">
+    <button mat-flat-button class="button" style="background: #6BA30F; color: white;"
+            [disabled]="!((requestService.device.order.status === 1 || requestService.device.order.status === 9) && requestService.device.order.timeStart * 1000 < nowTime &&
+            requestService.device.order.timeStart * 1000 > nowTime - 60 * 60 * 1000 * 24)" (click)="updateStatus(2)">Take now</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;" disabled>Start session</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
+            [disabled]="requestService.device.order.status !== 1 && requestService.device.order.status !== 9" (click)="updateStatus(9)">Schedule</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="reject()"
+            [disabled]="requestService.device.order.status !== 1 && requestService.device.order.status !== 2 && requestService.device.order.status !== 9">Reject</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+
+  <div class="actions-container">
+    <button mat-flat-button class="unwork-c">
+      <img src="/assets/service/request/vehicle/icon_action_1.png" alt="">
+    </button>
+    <button mat-flat-button class="unwork-c">
+      <img src="/assets/service/request/vehicle/icon_action_2.png" alt="">
+    </button>
+    <button mat-flat-button class="unwork-c">
+      <img src="/assets/service/request/vehicle/icon_action_3.png" alt="">
+    </button>
+    <label style="width: 28px; height: 34px; cursor: pointer; margin-left: 20px">
+      <button mat-flat-button>
+        <img src="/assets/service/request/vehicle/icon_action_4.png" alt="" class="w-100">
+      </button>
+      <input type="file" class="d-none" (change)="requestService.uploadFilesToOrder($event)" multiple>
+    </label>
+  </div>
+
+  <div class="top-right-buttons">
+    <button mat-flat-button class="button" style="border: 1px solid #000000;" disabled>Save & close</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;" routerLink="/service/orders">Cancel</button>
+  </div>
+
+  <div class="bottom-left-buttons">
+    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="services" routerLinkActive="navigate-active">Services</button>
+    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="vehicle" routerLinkActive="navigate-active">Vehicle</button>
+    <button mat-flat-button class="button rounded-0" routerLink="customer" routerLinkActive="navigate-active">Customer</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
