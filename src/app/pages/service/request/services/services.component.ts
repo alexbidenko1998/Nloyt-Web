@@ -32,7 +32,7 @@ export class ServicesComponent implements OnInit {
 
   constructor(
     public requestService: RequestService,
-    private serviceService: ServiceService,
+    public serviceService: ServiceService,
     private dialog: MatDialog
   ) { }
 

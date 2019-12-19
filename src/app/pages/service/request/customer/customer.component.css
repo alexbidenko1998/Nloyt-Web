@@ -124,6 +124,8 @@ td:last-child, th:last-child {
   overflow: hidden;
   min-width: initial;
   top: 11px;
+  outline: none;
+  padding: 0;
 }
 .messager-body {
   background: #EDEDEF;
@@ -169,4 +171,6 @@ td:last-child, th:last-child {
   padding: 0 2px;
   border-radius: 50%;
   position: absolute;
+  outline: none;
+  min-width: initial;
 }

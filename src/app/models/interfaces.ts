@@ -23,6 +23,7 @@ export interface Order {
 export interface Device {
   id: number;
   ownerId: number;
+  owner?: User;
   pin: string;
   make: string;
   model: string;
@@ -34,6 +35,20 @@ export interface Device {
   data?: Telemetry;
   created_at: string;
   updated_at: string;
+}
+export interface User {
+  id: number;
+  phone: string;
+  email: string;
+  token: string;
+  isConfirm: boolean;
+  created_at: string;
+  updated_at: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  paymentMethod: string;
+  ordersCount?: number;
 }
 export interface Telemetry {
   id: number;

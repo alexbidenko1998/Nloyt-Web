@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Device, Order, OrderConclusion, OrderFile, ResponseModel, Telemetry} from '../models/interfaces';
+import {Device, Order, ResponseModel, Telemetry} from '../models/interfaces';
 import * as FileSaver from 'file-saver';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class ServiceService {
   }
 
   getOrders(page: number): Observable<ResponseModel<Device[]>> {
-    return this.httpClient.get<ResponseModel<Device[]>>(this.baseUrl + 'api/service/order/' + page + '/10', {
+    return this.httpClient.get<ResponseModel<Device[]>>(this.baseUrl + 'api/service/order/page/' + page + '/10', {
       headers: new HttpHeaders({
         Authorization: localStorage.getItem('userToken')
       })

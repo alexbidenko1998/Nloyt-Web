@@ -35,7 +35,8 @@
       <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
         <thead>
         <tr class="mat-header-row">
-          <th class="mat-header-cell text-left" [class.border-0]="!isShowFirstTable">Resources details</th>
+          <th class="mat-header-cell text-left" [class.border-0]="!isShowFirstTable">Order requester
+            [{{requestService.device.owner.ordersCount === 1 ? 'first time' : requestService.device.owner.ordersCount + ' orders'}}]</th>
           <th class="mat-header-cell text-right" [class.border-0]="!isShowFirstTable">
             <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowFirstTable = !isShowFirstTable"
                  [class.rotate-icon]="isShowFirstTable">
@@ -43,42 +44,56 @@
         </tr>
         </thead>
         <tbody *ngIf="isShowFirstTable">
+        <tr class="mat-row" *ngIf="requestService.device.owner.firstName || requestService.device.owner.lastName">
+          <td class="text-left mat-cell">Name</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">
+            {{requestService.device.owner.firstName + ' ' + requestService.device.owner.lastName}}
+          </td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.phone">
+          <td class="text-left mat-cell">Phone</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.phone}}</td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.email">
+          <td class="text-left mat-cell">Email</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.email}}</td>
+        </tr>
         </tbody>
       </table>
 
-      <table class="mat-table custom-card" style="width: 100%; overflow: hidden;">
-        <thead>
-        <tr class="mat-header-row">
-          <th class="mat-header-cell text-left" [class.border-0]="!isShowSecondTable">Specification</th>
-          <th class="mat-header-cell text-right" [class.border-0]="!isShowSecondTable">
-            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowSecondTable = !isShowSecondTable"
-                 [class.rotate-icon]="isShowSecondTable">
-          </th>
-        </tr>
-        </thead>
-        <tbody *ngIf="isShowSecondTable">
-        <tr class="mat-row">
-          <td class="text-left mat-cell">Make</td>
-          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.make}}</td>
-        </tr>
-        <tr class="mat-row">
-          <td class="text-left mat-cell">Model</td>
-          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.model}}</td>
-        </tr>
-        <tr class="mat-row">
-          <td class="text-left mat-cell">Generation</td>
-          <td class="mat-cell text-right" style="font-weight: bold;">X253</td>
-        </tr>
-        <tr class="mat-row">
-          <td class="text-left mat-cell">Modification</td>
-          <td class="mat-cell text-right" style="font-weight: bold;">GLC300 4MATIC 2.0 245 hp</td>
-        </tr>
-        <tr class="mat-row">
-          <td class="text-left mat-cell">Series</td>
-          <td class="mat-cell text-right" style="font-weight: bold;">Crossover</td>
-        </tr>
-        </tbody>
-      </table>
+<!--      <table class="mat-table custom-card" style="width: 100%; overflow: hidden;">-->
+<!--        <thead>-->
+<!--        <tr class="mat-header-row">-->
+<!--          <th class="mat-header-cell text-left" [class.border-0]="!isShowSecondTable">Specification</th>-->
+<!--          <th class="mat-header-cell text-right" [class.border-0]="!isShowSecondTable">-->
+<!--            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowSecondTable = !isShowSecondTable"-->
+<!--                 [class.rotate-icon]="isShowSecondTable">-->
+<!--          </th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody *ngIf="isShowSecondTable">-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Make</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.make}}</td>-->
+<!--        </tr>-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Model</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.model}}</td>-->
+<!--        </tr>-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Generation</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">X253</td>-->
+<!--        </tr>-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Modification</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">GLC300 4MATIC 2.0 245 hp</td>-->
+<!--        </tr>-->
+<!--        <tr class="mat-row">-->
+<!--          <td class="text-left mat-cell">Series</td>-->
+<!--          <td class="mat-cell text-right" style="font-weight: bold;">Crossover</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
     </div>
   </div>
 </div>
