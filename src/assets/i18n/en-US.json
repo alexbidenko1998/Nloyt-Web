@@ -1,5 +1,11 @@
 {
     "service.menu.hide": "Hide menu bar",
     "service.menu.notifications": "Service alerts & warnings",
-    "service.menu.orders": "Online maintenance orders"
+    "service.menu.orders": "Online maintenance orders",
+    "service.notification.7_days": "7 days",
+    "service.notification.booked": "Booked",
+    "service.notification.erros": "CUs erros",
+    "service.notification.expiration": "Warranty expiration",
+    "service.notification.regular_service": "Regular service",
+    "service.notification.title": "Service alerts & warnings"
 }

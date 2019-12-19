@@ -1,5 +1,11 @@
 {
     "service.menu.hide": "Скрыть панель меню",
-    "service.menu.notifications": "Оповещения и ошибки",
-    "service.menu.orders": "Заказы на обслуживание"
+    "service.menu.notifications": "Оповещения и предупреждения",
+    "service.menu.orders": "Заказы на обслуживание",
+    "service.notification.7_days": "7 дней",
+    "service.notification.booked": "Бронирования",
+    "service.notification.erros": "Ошибки",
+    "service.notification.expiration": "Истечение срока гарантии",
+    "service.notification.regular_service": "Регулярное обслуживание",
+    "service.notification.title": "Сервисные оповещения и предупреждения"
 }
