@@ -85,7 +85,7 @@
   </div>
 
   <div class="col-auto custom-card" [class.active-card]="activeFilters.isTP" (click)="activeFilters.isTP = !activeFilters.isTP" matRipple>
-    <h3 class="card-title">Tyre pressure</h3>
+    <h3 class="card-title">{{ 'service.notification.pressure' | translate }}</h3>
 
     <div class="row" style="margin: 0;">
       <div class="col-12 p-0" style="text-align: center;">
@@ -99,7 +99,7 @@
   </div>
 
   <div class="col-auto custom-card" [class.active-card]="activeFilters.isCL" (click)="activeFilters.isCL = !activeFilters.isCL" matRipple>
-    <h3 class="card-title">Colling liquid</h3>
+    <h3 class="card-title">{{ 'service.notification.liquid' | translate  }}</h3>
 
     <div class="row" style="margin: 0;">
       <div class="col-12 p-0" style="text-align: center;">
@@ -113,7 +113,7 @@
   </div>
 
   <div class="col-auto custom-card" [class.active-card]="activeFilters.isOL" (click)="activeFilters.isOL = !activeFilters.isOL" matRipple>
-    <h3 class="card-title">Oil level</h3>
+    <h3 class="card-title">{{ 'service.notification.oil' | translate  }}</h3>
 
     <div class="row" style="margin: 0;">
       <div class="col-12 p-0" style="text-align: center;">
@@ -127,7 +127,7 @@
   </div>
 
   <div class="col-auto custom-card" [class.active-card]="activeFilters.isFL" (click)="activeFilters.isFL = !activeFilters.isFL" matRipple>
-    <h3 class="card-title">Fuel level</h3>
+    <h3 class="card-title">{{ 'service.notification.fuel' | translate  }}</h3>
 
     <div class="row" style="margin: 0;">
       <div class="col-12 p-0" style="text-align: center;">
@@ -141,7 +141,7 @@
   </div>
 
   <div class="col-auto custom-card" [class.active-card]="activeFilters.isBV" (click)="activeFilters.isBV = !activeFilters.isBV" matRipple>
-    <h3 class="card-title">Battary voltage</h3>
+    <h3 class="card-title">{{ 'service.notification.battary' | translate  }}</h3>
 
     <div class="row" style="margin: 0;">
       <div class="col-12 p-0" style="text-align: center;">
@@ -184,18 +184,18 @@
     <!--  </button>-->
     <div class="pr-0 col-auto">
       <button class="pr-4" mat-button [matMenuTriggerFor]="actionMenu">
-        Action
+        {{ 'service.notification.action' | translate  }}
         <mat-icon style="position: absolute; top: 8px;">
           <img src="/assets/notifications/arrow_more.svg" alt="">
         </mat-icon>
 
         <mat-menu #actionMenu="matMenu" class="rounded-0">
-          <button mat-menu-item (click)="dismiss()">Dismiss</button>
-          <button disabled mat-menu-item>Book online service</button>
-          <button disabled mat-menu-item>Book offline maintanance</button>
-          <button disabled mat-menu-item [matMenuTriggerFor]="sendPushNotification">Send push notification</button>
-          <button disabled mat-menu-item [matMenuTriggerFor]="sendMessage">Send message</button>
-          <button disabled mat-menu-item>Start VoIP call</button>
+          <button mat-menu-item (click)="dismiss()">{{ 'service.notification.menu.dismiss' | translate  }}</button>
+          <button disabled mat-menu-item>{{ 'service.notification.menu.book_online' | translate  }}</button>
+          <button disabled mat-menu-item>{{ 'service.notification.menu.book_offline' | translate  }}</button>
+          <button disabled mat-menu-item [matMenuTriggerFor]="sendPushNotification">{{ 'service.notification.menu.book_offline' | send_notification  }}</button>
+          <button disabled mat-menu-item [matMenuTriggerFor]="sendMessage">{{ 'service.notification.menu.send_message' | translate  }}</button>
+          <button disabled mat-menu-item>{{ 'service.notification.menu.start_call' | translate  }}</button>
         </mat-menu>
 
         <mat-menu #sendPushNotification="matMenu" class="rounded-0">
@@ -230,32 +230,32 @@
     </ng-container>
 
     <ng-container matColumnDef="make">
-      <th mat-header-cell *matHeaderCellDef>Make</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.make' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left">{{element.make}}</td>
     </ng-container>
 
     <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef>Model</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.model' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left" style="color: #0054B9;">{{element.model}}</td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.type' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left">{{element.type}}</td>
     </ng-container>
 
     <ng-container matColumnDef="modification">
-      <th mat-header-cell *matHeaderCellDef>Modification</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.modification' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left">{{element.modification}}</td>
     </ng-container>
 
     <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef>Year</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.year' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left">{{element.fullYear}}</td>
     </ng-container>
 
     <ng-container matColumnDef="millage">
-      <th mat-header-cell *matHeaderCellDef>Millage</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.millage' | translate  }}</th>
       <td mat-cell *matCellDef="let element" class="text-left">{{element.miliageString}}</td>
     </ng-container>
 
@@ -324,7 +324,7 @@
 
     <ng-container matColumnDef="onlineService">
       <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.onlineService">
-        Online<br/>service
+        {{ 'service.notification.table.online_service' | translate }}
       </th>
       <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.onlineService">
         <img src="/assets/notifications/online_service.svg" alt="" *ngIf="element.onlineService">
@@ -337,7 +337,7 @@
 <!--    </ng-container>-->
 
     <ng-container matColumnDef="dataUpdate">
-      <th mat-header-cell *matHeaderCellDef class="pr-0 text-center">Data<br/>update</th>
+      <th mat-header-cell *matHeaderCellDef class="pr-0 text-center">{{ 'service.notification.table.date_update' | translate }}</th>
       <td mat-cell *matCellDef="let element" class="pr-0">
         <img src="/assets/notifications/service_warning.svg" alt="" *ngIf="getIsDataUpdateError(element) &&
             dismissNotifications.devices.indexOf(element.id) < 0">
