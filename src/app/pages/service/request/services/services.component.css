@@ -1,11 +1,11 @@
 .services-container {
   padding: 0 30px 30px;
-  width: 1180px;
+  width: 1240px;
 }
 .buttons-container {
-  height: 60px;
-  padding-top: 27px;
-  padding-left: 47px;
+  height: 58px;
+  padding-top: 22px;
+  padding-left: 45px;
 }
 .buttons-container button, .buttons-container label {
   height: 18px;
@@ -57,6 +57,9 @@ textarea {
 .low-color {
   color: #6BA30F;
 }
+.middle-color {
+  color: yellow;
+}
 .high-color {
   color: #FF0000;
 }
@@ -64,9 +67,9 @@ textarea {
   width: 47px;
 }
 .download-link {
-  color: #0054B9;
+  color: #0054B9!important;
   cursor: pointer;
 }
 .download-link:hover {
-  text-decoration: #0054B9;
+  text-decoration: underline #0054B9!important;
 }

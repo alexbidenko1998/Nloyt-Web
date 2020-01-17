@@ -3,16 +3,31 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Device, Order, ResponseModel, Telemetry} from '../models/interfaces';
 import * as FileSaver from 'file-saver';
+import Pusher from 'pusher-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
 
+  isBusy = false;
+  activeOrdersCount = 0;
+  channel: any;
+  ordersCount: any;
+
   constructor(
     private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string
-  ) { }
+  ) {
+    Pusher.logToConsole = true;
+
+    const pusher = new Pusher('f0076b29a03e5e7c3997', {
+      cluster: 'eu',
+      forceTLS: false
+    });
+
+    this.channel = pusher.subscribe('service-channel');
+  }
 
   getServiceConfig(): Observable<ResponseModel<any>> {
     return this.httpClient.get<ResponseModel<any>>(this.baseUrl + 'api/service/config', {

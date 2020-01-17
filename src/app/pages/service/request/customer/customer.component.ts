@@ -8,8 +8,11 @@ import {RequestService} from '../request.service';
 })
 export class CustomerComponent implements OnInit {
 
-  isShowFirstTable = true;
-  isShowSecondTable = true;
+  isShowTable = {
+    requester: true,
+    driver: true,
+    owner: true
+  };
 
   constructor(
     public requestService: RequestService

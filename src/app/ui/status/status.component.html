@@ -1,54 +1,59 @@
 <div>
-  <button *ngIf="(order.status === 1 || order.status === 9) && order.timeStart * 1000 < nowTime &&
-          order.timeStart * 1000 > nowTime - 60 * 60 * 1000 * 24" mat-stroked-button
-          class="btn btn-outline-success px-15px buttons-text"
-          (mousedown)="onMouseDown()" (mouseup)="onMouseUp()" (mouseout)="onMouseUp()" style="z-index: 10;">
-    Accept now
-<!--    <mat-icon>-->
-<!--      <img src="/assets/notifications/arrow_more.svg" alt="">-->
-<!--    </mat-icon>-->
+  <button *ngIf="(order.status === 1 || order.status === 9) && order.timeStart * 1000 <= nowTime && order.timeStart != 0"
+          mat-stroked-button class="btn btn-outline-success px-15px buttons-text"
+          (mousedown)="onMouseDown()" (mouseup)="onMouseUp()" (mouseout)="onMouseUp()" style="z-index: 2;">
+    {{ 'service.actions.accept_now' | translate  }}
+  </button>
+
+  <button *ngIf="order.status === 2" class="take-now px-15px pr-5" mat-button
+          [matMenuTriggerFor]="statusTakeNowMenu">
+    {{ 'service.actions.take_now' | translate  }}
+    <mat-icon style="position: absolute; top: 8px; right: 15px;">
+      <img src="/assets/notifications/arrow_more.svg" alt="">
+    </mat-icon>
   </button>
 
   <mat-menu #statusTakeNowMenu="matMenu">
-    <button mat-menu-item (click)="updateStatus(2)">Take now</button>
-    <button mat-menu-item (click)="updateStatus(9)">Schedule</button>
-    <button mat-menu-item (click)="updateStatus(4)">Reject</button>
+    <button mat-menu-item (click)="updateStatus(11)">{{ 'service.orders.menu.take_now' | translate  }}</button>
+    <button mat-menu-item (click)="updateStatus(9)">{{ 'service.orders.menu.schedule' | translate  }}</button>
+    <button mat-menu-item (click)="updateStatus(4)">{{ 'service.actions.reject' | translate  }}</button>
   </mat-menu>
 
-  <button *ngIf="order.status === 2" class="btn btn-success text-left" [routerLink]="'/service/orders/' + order.id + '/request'">
-    <img src="/assets/orders/planet_earth.svg" alt="" class="round-animation" style="margin-top: -6px;">
+  <button *ngIf="order.status === 11 || order.status === 12" class="btn btn-success text-left" [routerLink]="'/service/orders/' + order.id + '/request'">
+    <img src="/assets/orders/planet_earth.svg" alt="" [class.round-animation]="order.status === 11" style="margin-top: -6px;">
     {{timeString}}
   </button>
 
-  <span *ngIf="order.status === 3" class="px-15px buttons-text">Cancelled by Customer</span>
-  <span *ngIf="order.status === 4" class="px-15px buttons-text">Rejected by Workshop</span>
-  <span *ngIf="order.status === 5" class="px-15px buttons-text">Interrupted by Customer</span>
-  <span *ngIf="order.status === 6" class="px-15px buttons-text">Interrupted by Workshop</span>
-  <span *ngIf="order.status === 7" class="px-15px buttons-text">Receipt approval</span>
-  <span *ngIf="order.status === 8" class="px-15px buttons-text">Done</span>
+  <span *ngIf="order.status === 3" class="px-15px buttons-text">{{ 'service.orders.table.canceled_by_customer' | translate  }}</span>
+  <span *ngIf="order.status === 4" class="px-15px buttons-text">{{ 'service.orders.table.rejected_by_workshop' | translate  }}</span>
+  <span *ngIf="order.status === 5" class="px-15px buttons-text">{{ 'service.orders.table.interrupted_by_customer' | translate  }}</span>
+  <span *ngIf="order.status === 6" class="px-15px buttons-text">{{ 'service.orders.table.interrupted_by_workshop' | translate  }}</span>
+  <span *ngIf="order.status === 7" class="px-15px buttons-text">{{ 'service.orders.table.receipt_approval' | translate  }}</span>
+  <span *ngIf="order.status === 8" class="px-15px buttons-text">{{ 'service.orders.table.done' | translate  }}</span>
 
-  <button *ngIf="order.status === 1 && order.timeStart * 1000 >= nowTime" mat-flat-button
+  <button *ngIf="order.status === 1 && order.timeStart * 1000 > nowTime" mat-flat-button
           [matMenuTriggerFor]="statusScheduled" class="px-15px buttons-text">
-    Scheduled
+    {{ 'service.orders.scheduled' | translate }}
     <mat-icon>
       <img src="/assets/notifications/arrow_more.svg" alt="">
     </mat-icon>
   </button>
 
-  <button *ngIf="order.status === 9 && order.timeStart * 1000 >= nowTime" mat-flat-button
+  <button *ngIf="order.status === 9 && (order.timeStart * 1000 > nowTime || order.timeStart === 0)" mat-flat-button
           [matMenuTriggerFor]="statusScheduled" class="px-15px buttons-text">
-    Re-scheduled
+    {{ 'service.orders.re_scheduled' | translate  }}
     <mat-icon>
       <img src="/assets/notifications/arrow_more.svg" alt="">
     </mat-icon>
   </button>
 
   <mat-menu #statusScheduled="matMenu">
-    <button mat-menu-item (click)="updateStatus(2)">Take now</button>
-    <button mat-menu-item (click)="updateStatus(9)">Schedule</button>
-    <button mat-menu-item (click)="updateStatus(4)">Reject</button>
+    <button mat-menu-item (click)="updateStatus(2)">{{ 'service.orders.menu.take_now' | translate  }}</button>
+    <button mat-menu-item (click)="updateStatus(9)">{{ 'service.orders.menu.schedule' | translate  }}</button>
+    <button mat-menu-item (click)="updateStatus(4)">{{ 'service.actions.reject' | translate  }}</button>
   </mat-menu>
 
-  <span *ngIf="order.status === 10 || ((order.status === 1 || order.status === 9) &&
-          order.timeStart * 1000 <= nowTime - 60 * 60 * 1000 * 24)" class="px-15px buttons-text">Overdue</span>
+  <span *ngIf="order.status === 10" class="px-15px buttons-text">
+    {{ 'service.orders.overdue' | translate  }}
+  </span>
 </div>

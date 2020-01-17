@@ -5,21 +5,26 @@ import {ResultDialogComponent} from '../../../ui/modals/result-dialog/result-dia
 import {ConfirmDialogComponent} from '../../../ui/modals/confirm-dialog/confirm-dialog.component';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
+  service = JSON.parse(localStorage.getItem('service'));
   orderId: number;
 
   device: Device;
   serviceConfig: any[];
 
+  saveTasksList: {id: number, task: Observable<any>}[] = [];
+
   constructor(
     private httpClient: HttpClient,
     private dialog: MatDialog,
-    @Inject('BASE_URL') private baseUrl: string
+    @Inject('BASE_URL') private baseUrl: string,
+    private translate: TranslateService
   ) { }
 
   uploadFilesToOrder(event) {
@@ -27,7 +32,7 @@ export class RequestService {
       const dialogConfig = new MatDialogConfig();
 
       dialogConfig.data = {
-        title: 'Are you sure want to upload ' + event.target.files.length + ' files?',
+        title: this.translate.instant('service.modal.sure_upload', {count: event.target.files.length}),
         confirm: () => {
           const form = new FormData();
           // tslint:disable-next-line:prefer-for-of
@@ -38,7 +43,7 @@ export class RequestService {
           this.uploadFiles(this.device.order.id, form).subscribe(files => {
             this.device.order.files = this.device.order.files.concat(files.data);
             const config = new MatDialogConfig();
-            config.data = {success: true, title: 'Success upload files'};
+            config.data = {success: true, title: this.translate.instant('service.modal.success_upload')};
             this.dialog.open(ResultDialogComponent, config);
           });
         },
@@ -76,11 +81,11 @@ export class RequestService {
   }
 
   updateOrderConclusions(conclusionId: number, conclusion: OrderConclusion) {
-    this.httpClient.put<ResponseModel<OrderConclusion>>(this.baseUrl + 'api/service/order/conclusion/' + conclusionId, conclusion, {
+    return this.httpClient.put<ResponseModel<OrderConclusion>>(this.baseUrl + 'api/service/order/conclusion/' + conclusionId, conclusion, {
       headers: new HttpHeaders({
         Authorization: localStorage.getItem('userToken')
       })
-    }).subscribe();
+    });
   }
 
   deleteOrderConclusion(conclusionId: number): Observable<ResponseModel<any>> {

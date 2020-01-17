@@ -44,7 +44,8 @@ export class NotificationsComponent implements OnInit {
     'BV',
     'onlineService',
     // 'offlineService',
-    'dataUpdate'
+    'dataUpdate',
+    'fake'
   ];
 
   activeDevices: number[] = [];
@@ -91,7 +92,7 @@ export class NotificationsComponent implements OnInit {
 
   getServiceConfig() {
     this.serviceService.getServiceConfig().subscribe(config => {
-      this.serviceConfig = config.data;
+      this.serviceConfig = config.data.config;
     });
   }
 

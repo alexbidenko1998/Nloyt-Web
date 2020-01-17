@@ -2,33 +2,33 @@
   <form>
     <div class="custom-control custom-radio">
       <input type="radio" id="isFreeYes" name="isFree" class="custom-control-input">
-      <label class="custom-control-label" for="isFreeYes">Сервисный центр оказывает услуги онлайн диагностически бесплатно.</label>
+      <label class="custom-control-label" for="isFreeYes">{{'other.registration.step_5.service_free' | translate}}</label>
     </div>
     <div class="custom-control custom-radio">
       <input type="radio" id="isFreeNo" name="isFree" class="custom-control-input">
-      <label class="custom-control-label" for="isFreeNo">Сервисный центр оказывает платные услуги онлайн диагностически.</label>
+      <label class="custom-control-label" for="isFreeNo">{{'other.registration.step_5.service_not_free' | translate}}</label>
     </div>
 
     <div class="row mt-5">
       <div class="col-auto">
-        <p>Платежные реквизиты</p>
+        <p>{{'other.registration.step_5.payment_details' | translate}}</p>
       </div>
       <div class="col">
         <hr>
         <div class="row">
           <div class="col-12 col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование СЦ">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.sc_name' | translate}}">
             </div>
           </div>
           <div class="col-12 col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="БИК">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.bic' | translate}}">
             </div>
           </div>
           <div class="col-12 col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Расчетный счет">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.payment_details' | translate}}">
             </div>
           </div>
         </div>
@@ -37,55 +37,57 @@
 
     <div class="row">
       <div class="col-auto" style="min-width: 197px;">
-        <p>Агентский договор</p>
+        <p>{{'other.registration.step_5.agency_contract' | translate}}</p>
       </div>
       <div class="col">
         <hr>
         <div class="row">
           <div class="col-12 col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="ФИО уполномоченного подписанта">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.signatory' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Должность">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.position' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Основание полномочий">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.authority' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Номер документа основания">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.document_number' | translate}}">
             </div>
           </div>
           <div class="col-12 col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Адрес почтовой корреспонденции">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.mailing_address' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="ФИО контактного лица">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.full_name' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Телефон контактного лица">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.phone' | translate}}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Электронная почта контактного лица">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.email' | translate}}">
             </div>
           </div>
           <div class="col-12 col-md-4 pb-3">
             <div class="form-group">
-              <input type="text" class="form-control rounded-0 text-center" placeholder="Сгенерировать агентский договор">
+              <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_5.agreement' | translate}}">
             </div>
 
             <a href="" class="d-block my-3 text-center">№RU-002-0056-AA01.pdf</a>
 
-            <div class="border mt-4 text-center" style="height: 98px; line-height: 98px;">Загрузить подписанный договор</div>
+            <div class="border mt-4 text-center" style="height: 98px; line-height: 98px;">{{'other.registration.step_5.download_contact' | translate}}</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="d-inline-block right mt-5 pb-5">
-      <button type="button" class="btn btn-outline-secondary rounded-0 px-5">Save</button>
-      <button type="button" class="btn btn-success rounded-0 px-5" (click)="router.navigateByUrl('registration/6')">Save and Submit</button>
+      <button type="button" class="btn btn-outline-secondary rounded-0 px-5">{{'other.registration.step_5.save' | translate}}</button>
+      <button type="button" class="btn btn-success rounded-0 px-5" (click)="router.navigateByUrl('registration/6')">
+        {{'other.registration.step_5.save_and_submit' | translate}}
+      </button>
     </div>
   </form>
 </div>

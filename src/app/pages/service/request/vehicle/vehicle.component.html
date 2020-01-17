@@ -2,21 +2,25 @@
   <div class="row">
     <div class="col-auto first-col">
       <div class="miles-months-container">
-        <p class="mm-hint">OEM warranty &  regular service consumtion availability </p>
+        <p class="mm-hint">{{ 'service.request.vehicle.availability' | translate }}</p>
 
         <div class="mm-switch-container">
           <div class="position-relative h-100">
             <button class="mm-switch-button" [style.marginLeft]="isMilesOrMonths ? '0' : '70px'" (click)="mmSwitch(0)"></button>
 
             <div class="position-absolute h-100" style="top: 0;">
-              <span class="mm-variant" [style.color]="isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(1)">miles</span>
-              <span class="mm-variant" style="margin-left: 70px;" [style.color]="!isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(2)">months</span>
+              <span class="mm-variant" [style.color]="isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(1)">
+                {{ 'service.request.vehicle.miles' | translate }}
+              </span>
+              <span class="mm-variant" style="margin-left: 70px;" [style.color]="!isMilesOrMonthsColor ? '#6A707E' : 'white'" (click)="mmSwitch(2)">
+                {{ 'service.request.vehicle.months' | translate }}
+              </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="miliage-line">
+      <div class="miliage-line border-02">
         <div class="miliage-current" [style.width]="(isMilesOrMonthsColor ? requestService.device.data.miliage / 135000 : getWarranty() / 34) * 100 + '%'"></div>
         <div class="max-value-line" [style.left]="(isMilesOrMonthsColor ? 100000 / 135000 : 24 / 34) * 100 + '%'"></div>
 
@@ -30,51 +34,77 @@
         <span class="period-value" style="left: calc(100% / 18 + 100% / 9 * 7);">{{isMilesOrMonthsColor ? 120 : 30}}</span>
       </div>
 
-      <div class="custom-card vehilce-status-container unwork">
-        <h5 class="vehilce-status">Vehicle status</h5>
-        <span class="vehilce-last-update">Last update: 02:45 min ago</span>
+      <div class="custom-card vehilce-status-container" >
+        <h5 class="vehilce-status">{{ 'service.request.vehicle.vehicle_status' | translate }}</h5>
+        <span class="vehilce-last-update">{{ 'service.request.vehicle.last_update' | translate: {timeAgo: getTimeAgo()} }}</span>
 
         <div class="ping-container">
           <div class="position-relative h-100">
             <img src="/assets/service/request/vehicle/ping_level.svg" alt="Ping Level" class="ping-level-icon">
-            <span class="ping-level-text">Ping 97</span>
-            <span class="ping-status">IGNITION OFF</span>
+            <span class="ping-level-text">{{ 'service.request.vehicle.ping' | translate }} 97</span>
+            <span class="ping-status">{{ 'service.request.vehicle.ignition_off' | translate }}</span>
           </div>
         </div>
 
         <div class="car-params-container" style="right: 30px;">
           <div class="position-relative h-100">
-            <img src="/assets/service/request/vehicle/car_params_5.svg" alt="" class="car-params-circle">
-            <img src="/assets/service/request/vehicle/icon_car_params_5.png" alt="" class="car-params-icon">
-            <span class="car-params-value">20%</span>
+            <svg class="car-params-circle" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <circle class="sector" r="25" cx="50" cy="50" [style.strokeDasharray]="getSector(requestService.device.data.OL, 1)"
+                      [style.stroke]="getColor(requestService.device.data.OL, 1, true)"/>
+            </svg>
+            <div class="car-params-icon">
+              <img src="/assets/service/request/vehicle/icon_car_params_5.png" alt="" class="w-100 h-100">
+            </div>
+            <span class="car-params-value">{{100 - requestService.device.data.OL * 100}}%</span>
           </div>
         </div>
         <div class="car-params-container" style="right: 97px;">
           <div class="position-relative h-100">
-            <img src="/assets/service/request/vehicle/car_params_4.svg" alt="" class="car-params-circle">
-            <img src="/assets/service/request/vehicle/icon_car_params_4.png" alt="" class="car-params-icon">
-            <span class="car-params-value">35%</span>
+            <svg class="car-params-circle" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <circle class="sector" r="25" cx="50" cy="50"
+                      [style.strokeDasharray]="getSector(requestService.device.data.BV, 100)"
+                      [style.stroke]="getColor(requestService.device.data.BV, 100)"/>
+            </svg>
+            <div class="car-params-icon">
+              <img src="/assets/service/request/vehicle/icon_car_params_4.png" alt="" class="w-100 h-100">
+            </div>
+            <span class="car-params-value">{{requestService.device.data.BV}}%</span>
           </div>
         </div>
         <div class="car-params-container" style="right: 165px;">
           <div class="position-relative h-100">
-            <img src="/assets/service/request/vehicle/car_params_3.svg" alt="" class="car-params-circle">
-            <img src="/assets/service/request/vehicle/icon_car_params_3.png" alt="" class="car-params-icon">
-            <span class="car-params-value">1</span>
+            <svg class="car-params-circle" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <circle class="sector" r="25" cx="50" cy="50" [style.strokeDasharray]="getSector(requestService.device.data.TP, 1)"
+                      [style.stroke]="getColor(requestService.device.data.TP, 1, true)"/>
+            </svg>
+            <div class="car-params-icon">
+              <img src="/assets/service/request/vehicle/icon_car_params_3.png" alt="" class="w-100 h-100">
+            </div>
+            <span class="car-params-value">{{requestService.device.data.TP}}</span>
           </div>
         </div>
         <div class="car-params-container" style="right: 232px;">
           <div class="position-relative h-100">
-            <img src="/assets/service/request/vehicle/car_params_2.svg" alt="" class="car-params-circle">
-            <img src="/assets/service/request/vehicle/icon_car_params_2.png" alt="" class="car-params-icon">
-            <span class="car-params-value">35%</span>
+            <svg class="car-params-circle" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <circle class="sector" r="25" cx="50" cy="50" [style.strokeDasharray]="getSector(24 - getWarranty(), 24)"
+                      [style.stroke]="getColor(24 - getWarranty(), 24)"/>
+            </svg>
+            <div class="car-params-icon">
+              <img src="/assets/service/request/vehicle/icon_car_params_2.png" alt="" class="h-100 w-100">
+            </div>
+            <span class="car-params-value">{{getMathRound((24 - getWarranty()) / 24 * 100)}}%</span>
           </div>
         </div>
         <div class="car-params-container" style="right: 300px;">
           <div class="position-relative h-100">
-            <img src="/assets/service/request/vehicle/car_params_1.svg" alt="" class="car-params-circle">
-            <img src="/assets/service/request/vehicle/icon_car_params_1.png" alt="" class="car-params-icon">
-            <span class="car-params-value">65%</span>
+            <svg class="car-params-circle" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <circle class="sector" r="25" cx="50" cy="50" [style.strokeDasharray]="getSector(100000 - requestService.device.data.miliage, 100000)"
+                      [style.stroke]="getColor(100000 - requestService.device.data.miliage, 100000)"/>
+            </svg>
+            <div class="car-params-icon">
+              <img src="/assets/service/request/vehicle/icon_car_params_1.png" alt="" class="h-100 w-100">
+            </div>
+            <span class="car-params-value">{{getMathRound((100000 - requestService.device.data.miliage) / 100000 * 100)}}%</span>
           </div>
         </div>
       </div>
@@ -82,15 +112,21 @@
       <table class="custom-card" style="width: 100%; overflow: hidden;" *ngIf="errorsTableData">
         <thead>
         <tr class="mat-header-row">
-          <th class="mat-header-cell text-left">Alert title</th>
-          <th class="mat-header-cell text-right">Treshold</th>
-          <th class="mat-header-cell text-right">Value</th>
-          <th class="mat-header-cell text-right">Date</th>
+          <th class="mat-header-cell text-left">{{ 'service.request.vehicle.table.alert_title' | translate }}</th>
+          <th class="mat-header-cell text-right">{{ 'service.request.vehicle.table.threshold' | translate }}</th>
+          <th class="mat-header-cell text-right" style="width: 137px;">{{ 'service.request.vehicle.table.value' | translate }}</th>
+          <th class="mat-header-cell text-right" style="width: 170px;">{{ 'service.request.vehicle.table.date' | translate }}</th>
         </tr>
         </thead>
         <tbody>
         <tr class="mat-row" *ngFor="let error of errorsTableData">
-          <td class="text-left mat-cell">{{error.title}}</td>
+          <td class="text-left mat-cell">
+            <span *ngIf="error.type === 'TP'">{{ 'service.request.vehicle.table.tp' | translate }}</span>
+            <span *ngIf="error.type === 'CL'">{{ 'service.request.vehicle.table.cl' | translate }}</span>
+            <span *ngIf="error.type === 'OL'">{{ 'service.request.vehicle.table.ol' | translate }}</span>
+            <span *ngIf="error.type === 'FL'">{{ 'service.request.vehicle.table.fl' | translate }}</span>
+            <span *ngIf="error.type === 'BV'">{{ 'service.request.vehicle.table.bv' | translate }}</span>
+          </td>
           <td class="text-right mat-cell">{{error.treshold}}</td>
           <td class="text-right mat-cell" style="font-weight: bold;">{{error.value}}</td>
           <td class="text-right mat-cell">{{error.date | date: 'HH:mm MM/dd/yy'}}</td>
@@ -98,14 +134,18 @@
         </tbody>
       </table>
 
-      <button matRipple class="outline-0 load-more" (click)="loadMore()" *ngIf="!isFinish">Load more</button>
+      <button matRipple class="outline-0 load-more" (click)="loadMore()" *ngIf="!isFinish">
+        {{ 'service.request.vehicle.load_more' | translate }}
+      </button>
     </div>
 
     <div class="col-auto second-col">
       <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
         <thead>
         <tr class="mat-header-row">
-          <th class="mat-header-cell text-left" [class.border-0]="!isShowFirstTable">Resources details</th>
+          <th class="mat-header-cell text-left table-details-title" [class.border-0]="!isShowFirstTable">
+            {{ 'service.request.vehicle.table.resources_details' | translate }}
+          </th>
           <th class="mat-header-cell text-right" [class.border-0]="!isShowFirstTable">
             <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowFirstTable = !isShowFirstTable"
                  [class.rotate-icon]="isShowFirstTable">
@@ -114,23 +154,23 @@
         </thead>
         <tbody *ngIf="isShowFirstTable">
         <tr class="mat-row gray-tr">
-          <td class="text-left mat-cell">Current millage, miles</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.millage_miles' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage()}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Warranty resource, miles</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.warranty_resource_miles' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage()}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Warranty resource, months</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.warranty_resource_months' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getWarranty()}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Regular service resource, miles</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.service_resource_miles' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getMillage(75000)}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Regular service resource, days</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.service_resource_days' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getWarranty() * 31}}</td>
         </tr>
         </tbody>
@@ -139,7 +179,7 @@
       <table class="mat-table custom-card" style="width: 100%; overflow: hidden;">
         <thead>
         <tr class="mat-header-row">
-          <th class="mat-header-cell text-left" [class.border-0]="!isShowSecondTable">Specification</th>
+          <th class="mat-header-cell text-left table-details-title" [class.border-0]="!isShowSecondTable">{{ 'service.request.vehicle.table.specification' | translate }}</th>
           <th class="mat-header-cell text-right" [class.border-0]="!isShowSecondTable">
             <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowSecondTable = !isShowSecondTable"
                  [class.rotate-icon]="isShowSecondTable">
@@ -152,27 +192,27 @@
           <td class="mat-cell text-right" style="font-weight: bold;">{{getVin()}}</td>
         </tr>
         <tr class="mat-row gray-tr">
-          <td class="text-left mat-cell">Number</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.number' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.pin}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Make</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.make' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.make}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Model</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.model' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.model}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Generation</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.generation' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">X253</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Year</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.year' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getDate()}}</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">Modification</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.modification' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">GLC300 4MATIC 2.0 245 hp</td>
         </tr>
 <!--        <tr class="mat-row">-->
@@ -184,11 +224,11 @@
 <!--          <td class="mat-cell text-right" style="font-weight: bold;">61</td>-->
 <!--        </tr>-->
         <tr class="mat-row">
-          <td class="text-left mat-cell">Series</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.series' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">Crossover</td>
         </tr>
         <tr class="mat-row">
-          <td class="text-left mat-cell">First registration</td>
+          <td class="text-left mat-cell">{{ 'service.request.vehicle.table.first_registration' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{getDate()}}</td>
         </tr>
         </tbody>

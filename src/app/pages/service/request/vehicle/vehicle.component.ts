@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceService} from '../../../../services/service.service';
-import {ActivatedRoute} from '@angular/router';
 import {Telemetry} from '../../../../models/interfaces';
 import {RequestService} from '../request.service';
+import {max} from 'rxjs/operators';
 
 @Component({
   selector: 'app-vehicle',
@@ -25,13 +25,12 @@ export class VehicleComponent implements OnInit {
 
   constructor(
     public requestService: RequestService,
-    private serviceService: ServiceService,
-    private route: ActivatedRoute
+    private serviceService: ServiceService
   ) { }
 
   ngOnInit() {
     this.serviceService.getServiceConfig().subscribe(config => {
-      this.requestService.serviceConfig = config.data;
+      this.requestService.serviceConfig = config.data.config;
       if (this.prepareErrorsTableData) {
         this.calcTable();
       }
@@ -48,6 +47,31 @@ export class VehicleComponent implements OnInit {
     this.isLoaded = false;
   }
 
+  getTimeAgo(): string {
+    if (this.requestService.device) {
+      const time = Math.round((new Date().getTime()
+        - new Date(this.requestService.device.data.updated_at).getTime()
+        + 1000 * 60 * 60 * 3) / 1000);
+      const second = time % 60;
+      return `${Math.floor((time - time % 60) / 60 / 60)}:${second < 10 ? '0' + second : second}`;
+    } else {
+      return '';
+    }
+  }
+
+  getSector(value: number, maxValue: number): string {
+    const width = 2 * Math.PI * 25;
+    return '' + (width / maxValue * value) + ',' + width;
+  }
+
+  getColor(value: number, maxValue: number, revers: boolean = false): string {
+    const percent = 1 - value / maxValue;
+    return 'hsl('
+      + ((revers ? 1 : -1) * (percent - 0.5) * 110 + 65)
+      + ',100%,'
+      + ((revers ? -1 : 1) * (percent - 0.5) * 10 + 40)  + '%)';
+  }
+
   getPrepareForTableError(error: Telemetry): any[] {
     const result = [];
     const permissibleValues = ['TP', 'CL', 'OL', 'FL', 'BV'];
@@ -55,7 +79,7 @@ export class VehicleComponent implements OnInit {
       this.requestService.serviceConfig.forEach(config => {
         if (config.type === type && (config.min > error[config.type] || config.max < error[config.type])) {
           result.push({
-            title: this.getTitle(config.type),
+            type: config.type,
             treshold: (config.min > error[config.type] ? config.min : config.max).toString() + this.getValueSuffix(config.type),
             value: error[config.type].toString() + this.getValueSuffix(config.type),
             date: error.created_at
@@ -64,23 +88,6 @@ export class VehicleComponent implements OnInit {
       });
     });
     return result;
-  }
-
-  getTitle(type: string) {
-    switch (type) {
-      case 'TP':
-        return 'Tyre pressure';
-      case 'CL':
-        return 'Colling liquid';
-      case 'OL':
-        return 'Oil level';
-      case 'FL':
-        return 'Fuel level';
-      case 'BV':
-        return 'Battary voltage';
-      default:
-        return '';
-    }
   }
 
   getValueSuffix(type: string) {
@@ -153,5 +160,9 @@ export class VehicleComponent implements OnInit {
     setTimeout(() => {
       this.isMilesOrMonthsColor = this.isMilesOrMonths;
     }, 150);
+  }
+
+  getMathRound(value: number): number {
+    return value < 0 ? 0 : Math.round(value);
   }
 }

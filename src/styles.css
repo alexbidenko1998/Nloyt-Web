@@ -28,14 +28,14 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 1300px!important; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 1500px!important; }
 
 .custom-card {
   width: fit-content;
   margin-right: 7px;
   background: white;
   box-shadow: 0 0 2px 0 #ccc;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 0 8px;
   min-width: 95px;
   text-align: center;
@@ -52,7 +52,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 
   font-size: 8px;
   line-height: 9px;
   letter-spacing: 0.01em;
-  margin: 6px 0;
+  margin: 4px 0 10px;
   text-align: left;
 
   color: #888888;
@@ -65,7 +65,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 
   line-height: 42px;
   letter-spacing: 0.01em;
 
-  color: #707683;
+  color: #333333;
 
   padding: 9px 19px 9px 19px;
 }
@@ -171,6 +171,25 @@ th {
   border: 2px solid #adadad;
   cursor: pointer;
 }
+.button-action {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #000000;
+}
+.table-details-title {
+  font-family: Roboto, sans-serif;
+  font-style: normal!important;
+  font-weight: 900!important;
+  font-size: 14px!important;
+  color: #000000!important;
+  opacity: 1!important;
+}
+.border-02 {
+  border: 1px solid #eee;
+}
 .checkbox-count.active {
   background: #adadad;
 }
@@ -210,6 +229,7 @@ td.mat-cell {
   font-size: 24px;
   line-height: 28px;
   margin: 0;
+  letter-spacing: 0.01em;
 }
 .outline-0 {
   outline: none!important;
@@ -233,7 +253,6 @@ table {
 .table-search {
   display: inline-block;
   background: #FFFFFF;
-  border: 0.2px solid #CCCCCC;
   box-sizing: border-box;
   border-radius: 6px;
   height: 30px;
@@ -265,6 +284,10 @@ tr.mat-header-row {
 }
 .is-invalid .bootstrap-select > .dropdown-toggle {
   border-color: #dc3545;
+}
+.card-row {
+  padding: 24px 34px 15px 34px;
+  margin: 0;
 }
 .card-row .custom-card {
   cursor: pointer;
@@ -335,4 +358,21 @@ mat-icon img {
 }
 .mat-form-field-underline {
   display: none;
+}
+.table-blue-text {
+  font-weight: 500!important;
+  font-size: 14px!important;
+  color: #0054B9!important;
+}
+td.mat-footer-cell {
+  z-index: 1!important;
+}
+.table-hovered-row *[mat-row] {
+  cursor: pointer;
+
+  transition: box-shadow .3s;
+}
+.table-hovered-row *[mat-row]:hover {
+  transform: scale(1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

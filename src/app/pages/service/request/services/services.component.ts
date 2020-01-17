@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {RequestService} from '../request.service';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatTableDataSource} from '@angular/material';
 import {ConfirmDialogComponent} from '../../../../ui/modals/confirm-dialog/confirm-dialog.component';
 import {ServiceService} from '../../../../services/service.service';
+import {OrderConclusion} from '../../../../models/interfaces';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-services',
@@ -22,21 +24,33 @@ export class ServicesComponent implements OnInit {
     'total'
   ];
 
+  conclusions: MatTableDataSource<OrderConclusion>;
   conclusionsColumns = ['checkbox', 'conclusion', 'risk'];
   checkedConclusions: number[] = [];
   isRedactConclusion = false;
-  newConclusion = {text: '', risk: 1};
+  newConclusion: OrderConclusion;
 
   filesColumns = ['checkbox', 'file', 'uploadDate'];
   checkedFiles: number[] = [];
 
+  isCheckedOrder = false;
+
   constructor(
     public requestService: RequestService,
     public serviceService: ServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
+    this.newConclusion = {
+      id: -1,
+      serviceId: this.requestService.service.id,
+      text: '',
+      risk: 0,
+      orderId: this.requestService.orderId,
+      timestamp: 0
+    };
   }
 
   addConclusionToCheck(conclusionId: number) {
@@ -48,28 +62,46 @@ export class ServicesComponent implements OnInit {
   }
 
   saveConclusion() {
-    if (this.newConclusion.text) {
-      this.requestService.addOrderConclusions(this.requestService.orderId, this.newConclusion).subscribe(result => {
-        this.requestService.device.order.conclusions.push(result.data);
-        this.isRedactConclusion = false;
-        this.newConclusion.text = '';
-        this.newConclusion.risk = 1;
-      });
+    if (this.newConclusion.text && this.newConclusion.risk !== 0) {
+      this.requestService.device.order.conclusions.push(Object.assign({}, this.newConclusion));
+      this.requestService.saveTasksList.push(
+        {
+          id: new Date().getTime(),
+          task: this.requestService.addOrderConclusions(this.requestService.orderId,
+            this.requestService.device.order.conclusions[this.requestService.device.order.conclusions.length - 1])
+        }
+      );
+      this.isRedactConclusion = false;
+      this.newConclusion.id--;
+      this.newConclusion.text = '';
+      this.newConclusion.risk = 0;
     } else {
       this.isRedactConclusion = false;
-      this.newConclusion.risk = 1;
+      this.newConclusion.risk = 0;
     }
   }
 
+  getConclusionsSource(): MatTableDataSource<OrderConclusion> {
+    this.conclusions = new MatTableDataSource(this.requestService.device.order.conclusions);
+    return this.conclusions;
+  }
+
   deleteConclusions() {
-    if (this.checkedConclusions) {
+    if (this.checkedConclusions.length > 0) {
       const dialogConfig = new MatDialogConfig();
 
       dialogConfig.data = {
-        title: 'Are you sure want to delete ' + this.checkedConclusions.length + ' conclusions?',
+        title: this.translate.instant('service.modal.sure_delete_conclusions', {count: this.checkedConclusions.length}),
         confirm: () => {
           this.checkedConclusions.forEach(id => {
-            this.requestService.deleteOrderConclusion(id).subscribe();
+            if (id > 0) {
+              this.requestService.saveTasksList.push(
+                {
+                  id: new Date().getTime(),
+                  task: this.requestService.deleteOrderConclusion(id)
+                }
+              );
+            }
           });
           this.requestService.device.order.conclusions =
             this.requestService.device.order.conclusions.filter(conclusion => this.checkedConclusions.indexOf(conclusion.id) === -1);
@@ -81,6 +113,15 @@ export class ServicesComponent implements OnInit {
 
       this.dialog.open(ConfirmDialogComponent, dialogConfig);
     }
+  }
+
+  updateConclusion(conclusionId: number, conclusion: OrderConclusion) {
+    this.requestService.saveTasksList.push(
+      {
+        id: new Date().getTime(),
+        task: this.requestService.updateOrderConclusions(conclusionId, conclusion)
+      }
+    );
   }
 
   addFileToCheck(fileId: number) {
@@ -101,11 +142,11 @@ export class ServicesComponent implements OnInit {
   }
 
   deleteFiles() {
-    if (this.checkedFiles) {
+    if (this.checkedFiles.length > 0) {
       const dialogConfig = new MatDialogConfig();
 
       dialogConfig.data = {
-        title: 'Are you sure want to delete ' + this.checkedFiles.length + ' files?',
+        title: this.translate.instant('service.modal.sure_delete_files', {count: this.checkedFiles.length}),
         confirm: () => {
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.checkedFiles.length; i++) {

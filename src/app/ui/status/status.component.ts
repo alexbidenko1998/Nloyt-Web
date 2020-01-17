@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Order} from '../../models/interfaces';
-import {Router} from '@angular/router';
 import {ServiceService} from '../../services/service.service';
 
 @Component({
@@ -14,26 +13,30 @@ export class StatusComponent implements OnInit, OnChanges, OnDestroy {
   @Output() onLongClick = new EventEmitter<number>();
   time = 0;
   timeString: string;
-  timer: number;
-  clickTimer: number;
+  timer: any;
+  clickTimer: any;
   nowTime: number;
 
-  timerCheckInterval: number;
-
   constructor(
-    private router: Router,
     private serviceService: ServiceService
   ) { }
 
   ngOnInit() {
-    this.timerCheck();
-    this.timerCheckInterval = setInterval(() => {
-      this.timerCheck();
-    }, 60000);
+    this.timer = setInterval(() => {
+      this.nowTime = new Date().getTime();
+      if (this.order.status === 11) {
+        this.time++;
+        this.timeString = this.getTimeString();
+      }
+    }, 1000);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onChange();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 
   getTimeString(): string {
@@ -49,23 +52,23 @@ export class StatusComponent implements OnInit, OnChanges, OnDestroy {
 
   updateStatus(newStatus: number) {
     this.serviceService.updateStatus(this.order.id, newStatus, localStorage.getItem('userToken')).subscribe(newOrder => {
-      this.order = newOrder.data;
+      this.order.status = newOrder.data.status;
+      this.order.duration = newOrder.data.duration;
+      this.order.timeStart = newOrder.data.timeStart;
+      this.order.isStarted = newOrder.data.isStarted;
       this.onChange();
     });
   }
 
   onChange() {
     if (this.time !== 0) {
-    } else if (this.order.status === 2) {
+    } else if (this.order.status === 11) {
       const nowTime = new Date().getTime();
       this.time = (nowTime - nowTime % 1000) / 1000 - this.order.timeStart;
       this.timeString = this.getTimeString();
-      this.timer = setInterval(() => {
-        this.time++;
-        this.timeString = this.getTimeString();
-      }, 1000);
-    } else {
-      clearInterval(this.timer);
+    } else if (this.order.status === 12) {
+      this.time = this.order.duration;
+      this.timeString = this.getTimeString();
     }
   }
 
@@ -83,16 +86,5 @@ export class StatusComponent implements OnInit, OnChanges, OnDestroy {
   onMouseUp() {
     this.onLongClick.emit(0);
     clearTimeout(this.clickTimer);
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timerCheckInterval);
-  }
-
-  timerCheck() {
-    this.nowTime = new Date().getTime();
-    if ((this.order.status === 1 || this.order.status === 9) && this.nowTime - this.order.timeStart * 1000 > 60 * 60 * 1000 * 24) {
-      this.updateStatus(10);
-    }
   }
 }

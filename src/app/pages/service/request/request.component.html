@@ -1,17 +1,79 @@
 <div class="fake-title-container"></div>
 <div class="title-container">
-  <h1 class="title" *ngIf="requestService.device">Request #RU-002-0056-20-05-{{requestService.device.order.id}}<span>|</span>{{getPageTitle()}}</h1>
+  <h1 class="title" *ngIf="requestService.device">{{ 'service.request.title' | translate }}
+    #RU-002-0056-20-05-{{requestService.device.order.id}}<span>|</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 1">{{ 'service.request.status.requested' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 2">{{ 'service.request.status.open' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 3">{{ 'service.request.status.canceled' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 4">{{ 'service.request.status.rejected' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 5 || this.requestService.device.order.status === 6">
+      {{ 'service.request.status.interrupted' | translate }}
+    </span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 7">{{ 'service.request.status.receipt_approval' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 8">{{ 'service.request.status.done' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 9">{{ 'service.request.status.rescheduled' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 10">{{ 'service.request.status.overdue' | translate }}</span>
+    <span class="uppercase m-0" *ngIf="this.requestService.device.order.status === 11 || this.requestService.device.order.status === 12"
+          style="color: #D93939;" [style.color]="this.requestService.device.order.status === 11 ? '#D93939' : ''">
+      {{ 'service.request.status.live' | translate }}
+    </span>
+  </h1>
 </div>
 <div class="buttons-panel" *ngIf="requestService.device">
-  <div class="top-left-buttons">
+  <!--    [disabled]="!((requestService.device.order.status === 1 || requestService.device.order.status === 9) && requestService.device.order.timeStart * 1000 < nowTime &&-->
+  <!--    requestService.device.order.timeStart * 1000 > nowTime - 60 * 60 * 1000 * 24)"-->
+  <div class="top-left-buttons" *ngIf="(isStatus(1) || isStatus(9)) && !serviceService.isBusy">
     <button mat-flat-button class="button" style="background: #6BA30F; color: white;"
-            [disabled]="!((requestService.device.order.status === 1 || requestService.device.order.status === 9) && requestService.device.order.timeStart * 1000 < nowTime &&
-            requestService.device.order.timeStart * 1000 > nowTime - 60 * 60 * 1000 * 24)" (click)="updateStatus(2)">Take now</button>
-    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;" disabled>Start session</button>
+            (click)="updateStatus(2)">{{ 'service.request.panel.take_now' | translate }}</button>
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.start' | translate }}</button>
     <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
-            [disabled]="requestService.device.order.status !== 1 && requestService.device.order.status !== 9" (click)="updateStatus(9)">Schedule</button>
-    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="reject()"
-            [disabled]="requestService.device.order.status !== 1 && requestService.device.order.status !== 2 && requestService.device.order.status !== 9">Reject</button>
+            (click)="updateStatus(9)">{{ 'service.request.panel.schedule' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="updateStatus(4)">{{ 'service.request.panel.reject' | translate }}</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+  <div class="top-left-buttons" *ngIf="(isStatus(1) || isStatus(9)) && serviceService.isBusy">
+    <button mat-flat-button class="button" style="border: 1px solid #6BA30F; color: #6BA30F;"
+            (click)="updateStatus(2)">{{ 'service.request.panel.request_now' | translate }}</button>
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.start' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
+            (click)="updateStatus(9)">{{ 'service.request.panel.reschedule' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="updateStatus(4)">{{ 'service.request.panel.reject' | translate }}</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+  <div class="top-left-buttons" *ngIf="isStatus(2)">
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.submit' | translate }}</button>
+    <button mat-flat-button class="button" style="background: #0054B9; color: white;" (click)="updateStatus(11)">{{ 'service.request.panel.start_session' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
+            (click)="updateStatus(9)">{{ 'service.request.panel.reschedule' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="updateStatus(6)">{{ 'service.request.panel.interrupt' | translate }}</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+  <div class="top-left-buttons" *ngIf="isStatus(11)">
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.submit' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #0054B9; color: #0054B9;" (click)="updateStatus(12)">{{ 'service.request.panel.stop_session' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
+            (click)="updateStatus(9)">{{ 'service.request.panel.reschedule' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="updateStatus(6)">{{ 'service.request.panel.interrupt' | translate }}</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+  <div class="top-left-buttons" *ngIf="isStatus(12)">
+    <button mat-flat-button class="button" style="background: #6BA30F; color: white;" (click)="updateStatus(7)">{{ 'service.request.panel.submit' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #0054B9; color: #0054B9;">{{ 'service.request.panel.stop_session' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;"
+            (click)="updateStatus(9)">{{ 'service.request.panel.reschedule' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #D93939; color: #D93939;" (click)="updateStatus(6)">{{ 'service.request.panel.interrupt' | translate }}</button>
+
+    <span class="top-left-buttons-divider"></span>
+  </div>
+  <div class="top-left-buttons" *ngIf="isStatus()">
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.submit' | translate }}</button>
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.start_session' | translate }}</button>
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.reschedule' | translate }}</button>
+    <button mat-flat-button class="button" disabled>{{ 'service.request.panel.interrupt' | translate }}</button>
 
     <span class="top-left-buttons-divider"></span>
   </div>
@@ -26,23 +88,30 @@
     <button mat-flat-button class="unwork-c">
       <img src="/assets/service/request/vehicle/icon_action_3.png" alt="">
     </button>
-    <label style="width: 28px; height: 34px; cursor: pointer; margin-left: 20px">
-      <button mat-flat-button>
-        <img src="/assets/service/request/vehicle/icon_action_4.png" alt="" class="w-100">
-      </button>
-      <input type="file" class="d-none" (change)="requestService.uploadFilesToOrder($event)" multiple>
-    </label>
+    <button mat-flat-button style="padding: 0 3px;" class="unwork-c">
+      <img src="/assets/service/request/vehicle/icon_action_4.png" alt="" class="w-100">
+    </button>
+    <input type="file" class="d-none" #fileUpload (change)="requestService.uploadFilesToOrder($event)" multiple>
+<!--    <label style="width: 28px; height: 34px; cursor: pointer; margin-left: 20px">-->
+<!--    </label>-->
   </div>
 
   <div class="top-right-buttons">
-    <button mat-flat-button class="button" style="border: 1px solid #000000;" disabled>Save & close</button>
-    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;" routerLink="/service/orders">Cancel</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000;" [disabled]="requestService.saveTasksList.length === 0"
+            (click)="saveAndClose()">{{ 'service.request.panel.save_close' | translate }}</button>
+    <button mat-flat-button class="button" style="border: 1px solid #000000; color: #000000;" routerLink="/service/orders">{{ 'service.request.panel.cancel' | translate }}</button>
   </div>
 
   <div class="bottom-left-buttons">
-    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="services" routerLinkActive="navigate-active">Services</button>
-    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="vehicle" routerLinkActive="navigate-active">Vehicle</button>
-    <button mat-flat-button class="button rounded-0" routerLink="customer" routerLinkActive="navigate-active">Customer</button>
+    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="services" routerLinkActive="navigate-active">
+      {{ 'service.request.panel.services' | translate }}
+    </button>
+    <button mat-flat-button class="button rounded-0" style="margin-right: 30px;" routerLink="vehicle" routerLinkActive="navigate-active">
+      {{ 'service.request.panel.vehicle' | translate }}
+    </button>
+    <button mat-flat-button class="button rounded-0" routerLink="customer" routerLinkActive="navigate-active">
+      {{ 'service.request.panel.customer' | translate }}
+    </button>
   </div>
 </div>
 

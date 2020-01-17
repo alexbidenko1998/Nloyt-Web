@@ -3,7 +3,7 @@
   <h1 class="title">{{ 'service.notification.title' | translate }}</h1>
 </div>
 
-<div class="row card-row" style="padding: 22px 32px 22px 32px; margin: 0;" *ngIf="devicesData">
+<div class="row card-row" *ngIf="devicesData">
   <div class="col-auto custom-card" *ngIf="devicesData.data" [class.active-card]="activeFilters.isRS" (click)="activeFilters.isRS = !activeFilters.isRS" matRipple>
     <h3 class="card-title">{{ 'service.notification.regular_service' | translate }}</h3>
 
@@ -165,7 +165,7 @@
 <!--  </div>-->
 </div>
 
-<div style="padding: 10px 32px 2px 32px;" class="container-fluid">
+<div style="padding: 2px 34px;" class="container-fluid">
   <div class="row">
     <!--  <button mat-button [matMenuTriggerFor]="viewMenu">-->
     <!--    View-->
@@ -183,8 +183,8 @@
     <!--    </mat-menu>-->
     <!--  </button>-->
     <div class="pr-0 col-auto">
-      <button class="pr-4" mat-button [matMenuTriggerFor]="actionMenu">
-        {{ 'service.notification.action' | translate  }}
+      <button class="pr-4 button-action" mat-button [matMenuTriggerFor]="actionMenu">
+        {{ 'service.buttons.action' | translate  }}
         <mat-icon style="position: absolute; top: 8px;">
           <img src="/assets/notifications/arrow_more.svg" alt="">
         </mat-icon>
@@ -193,7 +193,7 @@
           <button mat-menu-item (click)="dismiss()">{{ 'service.notification.menu.dismiss' | translate  }}</button>
           <button disabled mat-menu-item>{{ 'service.notification.menu.book_online' | translate  }}</button>
           <button disabled mat-menu-item>{{ 'service.notification.menu.book_offline' | translate  }}</button>
-          <button disabled mat-menu-item [matMenuTriggerFor]="sendPushNotification">{{ 'service.notification.menu.book_offline' | send_notification  }}</button>
+          <button disabled mat-menu-item [matMenuTriggerFor]="sendPushNotification">{{ 'service.notification.menu.send_notification' | translate  }}</button>
           <button disabled mat-menu-item [matMenuTriggerFor]="sendMessage">{{ 'service.notification.menu.send_message' | translate  }}</button>
           <button disabled mat-menu-item>{{ 'service.notification.menu.start_call' | translate  }}</button>
         </mat-menu>
@@ -209,7 +209,7 @@
     </div>
 
     <div class="px-0 col-auto" style="padding-top: 4px;">
-      <mat-form-field class="table-search row ml-4 pl-2">
+      <mat-form-field class="table-search border-02 row ml-4 pl-2">
         <mat-icon style="position: absolute; margin-top: -18px; color: #DDDDDD; bottom: 2px;">search</mat-icon>
         <input matInput class="border-0 outline-0 pl-4" type="text" (keyup)="devicesData.filter = $event.target.value.trim().toLowerCase()">
       </mat-form-field>
@@ -217,106 +217,110 @@
   </div>
 </div>
 
-<div style="padding: 22px 32px 22px 32px;">
-  <table mat-table [dataSource]="devicesData" class="w-100 custom-card">
+<div style="padding: 2px 34px 22px 34px;">
+  <table mat-table [dataSource]="devicesData" class="w-100 custom-card table-hovered-row">
     <ng-container matColumnDef="checkbox">
-      <th mat-header-cell *matHeaderCellDef class="pl-0 pt-1 text-center" style="width: 40px;">
+      <th mat-header-cell *matHeaderCellDef class="pl-0 pt-1 text-center" style="width: 47px;">
         <div class="checkbox-count" [class.active]="activeDevices.length > 0" (click)="checkAll()">{{activeDevices.length}}</div>
       </th>
-      <td mat-cell *matCellDef="let element" class="pl-0 pt-2 text-center" style="width: 40px;">
+      <td mat-cell *matCellDef="let element" class="pl-0 pt-2 text-center" style="width: 47px;">
         <mat-checkbox class="m-1" (change)="onChangeCheckbox($event, element.id)"
                       [ngModel]="activeDevices.indexOf(element.id) !== -1"></mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="make">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.make' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left">{{element.make}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 110px;">{{ 'service.table.make' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left" style="width: 110px;">{{element.make}}</td>
     </ng-container>
 
     <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.model' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left" style="color: #0054B9;">{{element.model}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 100px;">{{ 'service.table.model' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left table-blue-text" style="width: 100px;">{{element.model}}</td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.type' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left">{{element.type}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 70px;">{{ 'service.table.type' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left" style="width: 70px;">{{element.type}}</td>
     </ng-container>
 
     <ng-container matColumnDef="modification">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.modification' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left">{{element.modification}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 130px;">{{ 'service.table.modification' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left" style="width: 130px;">{{element.modification}}</td>
     </ng-container>
 
     <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.year' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left">{{element.fullYear}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 47px;">{{ 'service.table.year' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left" style="width: 47px;">{{element.fullYear}}</td>
     </ng-container>
 
     <ng-container matColumnDef="millage">
-      <th mat-header-cell *matHeaderCellDef>{{ 'service.notification.table.millage' | translate  }}</th>
-      <td mat-cell *matCellDef="let element" class="text-left">{{element.miliageString}}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 60px;">{{ 'service.table.millage' | translate  }}</th>
+      <td mat-cell *matCellDef="let element" class="text-left" style="width: 60px;">{{element.miliageString}}</td>
     </ng-container>
 
     <ng-container matColumnDef="RS">
-      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.isRS">RS</th>
-      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isRS">
+      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef
+          [class.d-none]="activeFilters.isRS" style="width: 50px;">RS</th>
+      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isRS" style="width: 50px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="getIsWarrantyError(element) === 2 &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="WE">
-      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isWE">WE</th>
-      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isWE">
+      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isWE" style="width: 52px;">WE</th>
+      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isWE" style="width: 52px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="getIsWarrantyError(element) === 1 &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="UE">
-      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.isUE">UE</th>
-      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isUE">
+      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef
+          [class.d-none]="activeFilters.isUE" style="width: 50px;">UE</th>
+      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isUE" style="width: 50px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="getIsError(element.data) &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="TP">
-      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isTP">TP</th>
-      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isTP">
+      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isTP" style="width: 54px;">TP</th>
+      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isTP" style="width: 54px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="element.data.TP > getConfig('TP', 'max') &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="CL">
-      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.isCL">CL</th>
-      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isCL">
+      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef
+          [class.d-none]="activeFilters.isCL" style="width: 50px;">CL</th>
+      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isCL" style="width: 50px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="element.data.CL > getConfig('CL', 'max') &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
     <ng-container matColumnDef="OL">
-      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isOL">OL</th>
-      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isOL">
+      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isOL" style="width: 51px;">OL</th>
+      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isOL" style="width: 51px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="element.data.OL > getConfig('OL', 'max') &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="FL">
-      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.isFL">FL</th>
-      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isFL">
+      <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef
+          [class.d-none]="activeFilters.isFL" style="width: 50px;">FL</th>
+      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isFL" style="width: 50px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="element.data.FL > getConfig('FL', 'max') &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
     </ng-container>
 
     <ng-container matColumnDef="BV">
-      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isBV">BV</th>
-      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isBV">
+      <th mat-header-cell *matHeaderCellDef class="text-center" [class.d-none]="activeFilters.isBV" style="width: 51px;">BV</th>
+      <td mat-cell *matCellDef="let element" [class.d-none]="activeFilters.isBV" style="width: 51px;">
         <img src="/assets/notifications/service_alert.svg" alt="" *ngIf="element.data.BV < getConfig('BV', 'min') &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
@@ -324,10 +328,8 @@
 
     <ng-container matColumnDef="onlineService">
       <th class="gray-table-cell text-center" mat-header-cell *matHeaderCellDef [class.d-none]="activeFilters.onlineService"
-          style="white-space: pre-wrap;">
-        {{ 'service.notification.table.online_service' | translate }}
-      </th>
-      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.onlineService">
+          style="white-space: pre-wrap; width: 64px;">{{ 'service.notification.table.online_service' | translate }}</th>
+      <td class="gray-table-cell" mat-cell *matCellDef="let element" [class.d-none]="activeFilters.onlineService" style="width: 64px;">
         <img src="/assets/notifications/online_service.svg" alt="" *ngIf="element.onlineService">
       </td>
     </ng-container>
@@ -338,11 +340,17 @@
 <!--    </ng-container>-->
 
     <ng-container matColumnDef="dataUpdate">
-      <th mat-header-cell *matHeaderCellDef class="pr-0 text-center">Data<br/>update</th>
-      <td mat-cell *matCellDef="let element" class="pr-0">
+      <th mat-header-cell *matHeaderCellDef class="pr-0 text-center"
+          style="white-space: pre-wrap; width: 106px;">{{ 'service.notification.table.data_update' | translate }}</th>
+      <td mat-cell *matCellDef="let element" class="pr-0" style="width: 106px;">
         <img src="/assets/notifications/service_warning.svg" alt="" *ngIf="getIsDataUpdateError(element) &&
             dismissNotifications.devices.indexOf(element.id) < 0">
       </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fake">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

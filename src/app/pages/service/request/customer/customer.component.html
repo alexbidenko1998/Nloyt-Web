@@ -1,6 +1,6 @@
 <div class="container-fluid body" *ngIf="requestService.device">
   <div class="row">
-    <div class="col-auto first-col">
+    <div class="col-auto first-col d-none">
       <div class="custom-card messager unwork">
         <div class="messager-header">
           <h3 class="title">Order №RU-002-0056-20-05-{{requestService.device.ownerId}}</h3>
@@ -35,27 +35,100 @@
       <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
         <thead>
         <tr class="mat-header-row">
-          <th class="mat-header-cell text-left" [class.border-0]="!isShowFirstTable">Order requester
-            [{{requestService.device.owner.ordersCount === 1 ? 'first time' : requestService.device.owner.ordersCount + ' orders'}}]</th>
-          <th class="mat-header-cell text-right" [class.border-0]="!isShowFirstTable">
-            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowFirstTable = !isShowFirstTable"
-                 [class.rotate-icon]="isShowFirstTable">
+          <th class="mat-header-cell text-left table-details-title" [class.border-0]="!isShowTable.requester">
+            {{ 'service.request.customer.table.order_requester' | translate }}
+            <span *ngIf="requestService.device.owner.ordersCount === 1">[<span style="color: #6BA30F;">{{ 'service.request.customer.table.first_time' | translate }}</span>]</span>
+            <span *ngIf="requestService.device.owner.ordersCount !== 1">
+              [<span style="color: #0F27A3;">{{ 'service.request.customer.table.orders_count' | translate: {'count': requestService.device.owner.ordersCount} }}</span>]
+            </span>
+          </th>
+          <th class="mat-header-cell text-right" [class.border-0]="!isShowTable.requester">
+            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowTable.requester = !isShowTable.requester"
+                 [class.rotate-icon]="isShowTable.requester">
           </th>
         </tr>
         </thead>
-        <tbody *ngIf="isShowFirstTable">
+        <tbody *ngIf="isShowTable.requester">
         <tr class="mat-row" *ngIf="requestService.device.owner.firstName || requestService.device.owner.lastName">
-          <td class="text-left mat-cell">Name</td>
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.name' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">
             {{requestService.device.owner.firstName + ' ' + requestService.device.owner.lastName}}
           </td>
         </tr>
         <tr class="mat-row" *ngIf="requestService.device.owner.phone">
-          <td class="text-left mat-cell">Phone</td>
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.phone' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.phone}}</td>
         </tr>
         <tr class="mat-row" *ngIf="requestService.device.owner.email">
-          <td class="text-left mat-cell">Email</td>
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.email' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
+        <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell text-left table-details-title" [class.border-0]="!isShowTable.driver">
+            {{ 'service.request.customer.table.vehicle_driver' | translate }}
+            <span *ngIf="requestService.device.owner.ordersCount === 1">[<span style="color: #6BA30F;">{{ 'service.request.customer.table.first_time' | translate }}</span>]</span>
+            <span *ngIf="requestService.device.owner.ordersCount !== 1">
+              [<span style="color: #0F27A3;">{{ 'service.request.customer.table.orders_count' | translate: {'count': requestService.device.owner.ordersCount} }}</span>]
+            </span>
+          </th>
+          <th class="mat-header-cell text-right" [class.border-0]="!isShowTable.driver">
+            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowTable.driver = !isShowTable.driver"
+                 [class.rotate-icon]="isShowTable.driver">
+          </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="isShowTable.driver">
+        <tr class="mat-row" *ngIf="requestService.device.owner.firstName || requestService.device.owner.lastName">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.name' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">
+            {{requestService.device.owner.firstName + ' ' + requestService.device.owner.lastName}}
+          </td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.phone">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.phone' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.phone}}</td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.email">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.email' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="mat-table custom-card" style="width: 100%; overflow: hidden; margin-bottom: 30px;">
+        <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell text-left table-details-title" [class.border-0]="!isShowTable.owner">
+            {{ 'service.request.customer.table.vehicle_owner' | translate }}
+            <span *ngIf="requestService.device.owner.ordersCount === 1">[<span style="color: #6BA30F;">{{ 'service.request.customer.table.first_time' | translate }}</span>]</span>
+            <span *ngIf="requestService.device.owner.ordersCount !== 1">
+              [<span style="color: #0F27A3;">{{ 'service.request.customer.table.orders_count' | translate: {'count': requestService.device.owner.ordersCount} }}</span>]
+            </span>
+          </th>
+          <th class="mat-header-cell text-right" [class.border-0]="!isShowTable.owner">
+            <img src="/assets/orders/table_more.svg" alt="" class="table-more" (click)="isShowTable.owner = !isShowTable.owner"
+                 [class.rotate-icon]="isShowTable.owner">
+          </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="isShowTable.owner">
+        <tr class="mat-row" *ngIf="requestService.device.owner.firstName || requestService.device.owner.lastName">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.name' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">
+            {{requestService.device.owner.firstName + ' ' + requestService.device.owner.lastName}}
+          </td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.phone">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.phone' | translate }}</td>
+          <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.phone}}</td>
+        </tr>
+        <tr class="mat-row" *ngIf="requestService.device.owner.email">
+          <td class="text-left mat-cell">{{ 'service.request.customer.table.email' | translate }}</td>
           <td class="mat-cell text-right" style="font-weight: bold;">{{requestService.device.owner.email}}</td>
         </tr>
         </tbody>

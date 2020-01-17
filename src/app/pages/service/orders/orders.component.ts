@@ -1,6 +1,5 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatTableDataSource} from '@angular/material';
-import Pusher from 'pusher-js';
 import {ServiceService} from '../../../services/service.service';
 import {Device, Order, OrderFile} from '../../../models/interfaces';
 import {FormControl} from '@angular/forms';
@@ -11,7 +10,7 @@ import {DownloadListDialogComponent} from '../../../ui/modals/download-list-dial
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnChanges {
 
   service = JSON.parse(localStorage.getItem('service'));
   page = 1;
@@ -40,15 +39,16 @@ export class OrdersComponent implements OnInit {
     'model',
     'type',
     'modification',
-    'millage',
     'year',
+    'millage',
     'warranty',
     'service',
     'edt',
     'catalog',
     'total',
     'status',
-    'files'
+    'files',
+    'fake'
   ];
 
   ordersData: MatTableDataSource<Device> = new MatTableDataSource([]);
@@ -68,24 +68,22 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.getOrders();
 
-    Pusher.logToConsole = true;
-
-    const pusher = new Pusher('f0076b29a03e5e7c3997', {
-      cluster: 'eu',
-      forceTLS: false
-    });
-
-    const channel = pusher.subscribe('orders');
-    channel.bind('order-service-' + this.service.id, data => {
+    this.serviceService.channel.bind('order-service-' + this.service.id, data => {
       this.updateOrderBind(data);
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (document.documentElement.scrollHeight - document.documentElement.scrollTop < 400 + window.innerHeight) {
+      this.getOrders();
+    }
   }
 
   getOrders() {
     if (!this.isFinish && !this.isLoading) {
       this.isLoading = true;
       this.serviceService.getOrders(this.page).subscribe(devices => {
-        if (devices.data.length < 10) {
+        if (devices.data.length === 0) {
           this.isFinish = true;
         }
         // tslint:disable-next-line:prefer-for-of
@@ -107,13 +105,19 @@ export class OrdersComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.ordersData.data.length; i++) {
       if (this.ordersData.data[i].order.id === bindData.order.id) {
-        this.ordersData.data[i].order = bindData.order;
+        this.ordersData.data[i].order.status = bindData.order.status;
+        this.ordersData.data[i].order.duration = bindData.order.duration;
+        this.ordersData.data[i].order.timeStart = bindData.order.timeStart;
+        this.ordersData.data[i].order.isStarted = bindData.order.isStarted;
         isFound = true;
       }
     }
     if (!isFound) {
       bindData.device.order = bindData.order;
-      this.ordersData.data.unshift(bindData.device);
+      bindData.device.fullYear = new Date(bindData.device.date * 1000).getFullYear();
+      const tableData = this.ordersData.data;
+      tableData.unshift(bindData.device);
+      this.ordersData.data = tableData;
     }
   }
 
@@ -132,20 +136,22 @@ export class OrdersComponent implements OnInit {
     for (const filterKey in this.activeFilters) {
       this.activeFilters[filterKey] = false;
     }
-    if (key) {
-      this.activeFilters[key] = true;
-    }
+    setTimeout(() => {
+      if (key) {
+        this.activeFilters[key] = true;
+      }
+    }, 10);
   }
 
   getCountOrders(status: number): number {
-    if (this.ordersData) {
-      return this.ordersData.data.filter(el => el.order.status === status).length;
+    if (this.serviceService.ordersCount) {
+      return this.serviceService.ordersCount['status_' + status];
     } else {
       return 0;
     }
   }
 
-  getIsHidden(data: Device): boolean {
+  getIsShow(data: Device): boolean {
     let isInDate;
     if (!(typeof this.date1.value === 'string' && this.date1.value) || !(typeof this.date2.value === 'string' && this.date2.value)) {
       isInDate = true;
@@ -164,25 +170,27 @@ export class OrdersComponent implements OnInit {
     }
     switch (data.order.status) {
       case 1:
-        return this.activeFilters.acceptNow && isInDate;
+        return !this.activeFilters.acceptNow && isInDate;
       case 2:
-        return this.activeFilters.connection && isInDate;
+        return !this.activeFilters.connection && isInDate;
       case 3:
-        return this.activeFilters.cancelledByC && isInDate;
+        return !this.activeFilters.cancelledByC && isInDate;
       case 4:
-        return this.activeFilters.rejectedByWS && isInDate;
+        return !this.activeFilters.rejectedByWS && isInDate;
       case 5:
-        return this.activeFilters.interruptedByC && isInDate;
+        return !this.activeFilters.interruptedByC && isInDate;
       case 6:
-        return this.activeFilters.interruptedByWS && isInDate;
+        return !this.activeFilters.interruptedByWS && isInDate;
       case 7:
-        return this.activeFilters.receiptApproval && isInDate;
+        return !this.activeFilters.receiptApproval && isInDate;
       case 8:
-        return this.activeFilters.done && isInDate;
+        return !this.activeFilters.done && isInDate;
       case 9:
-        return this.activeFilters.scheduled && isInDate;
+        return !this.activeFilters.scheduled && isInDate;
       case 10:
-        return this.activeFilters.overdue && isInDate;
+        return !this.activeFilters.overdue && isInDate;
+      default:
+        return isInDate;
     }
   }
 
@@ -195,11 +203,11 @@ export class OrdersComponent implements OnInit {
 
   checkAll() {
     if (this.activeOrders.length !== this.ordersData.filteredData.filter(el => {
-      return this.getIsHidden(el);
+      return this.getIsShow(el);
     }).length) {
       this.activeOrders = [];
       this.ordersData.filteredData.forEach(el => {
-        if (this.getIsHidden(el)) {
+        if (this.getIsShow(el)) {
           this.activeOrders.push(el.order.id);
         }
       });

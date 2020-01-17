@@ -8,11 +8,14 @@ button {
 .title span {
   margin: 0 20px;
 }
+.title .uppercase {
+  text-transform: uppercase;
+}
 .title-container {
   border-bottom: 1px solid #EBEFF2;
 }
 .buttons-panel {
-  height: 104px;
+  height: 107px;
   background: white;
   position: relative;
   border-bottom: 1px solid #EBEFF2;
@@ -85,6 +88,7 @@ button {
 }
 .navigate-active {
   border-bottom: 3px solid #6BA30F;
+  font-weight: 900!important;
 }
 button[disabled] {
   background: #FFFFFF!important;

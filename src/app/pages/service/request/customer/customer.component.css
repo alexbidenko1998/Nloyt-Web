@@ -47,6 +47,7 @@
 th {
   border-bottom-width: 1px;
   border-bottom-style: dashed!important;
+  white-space: nowrap;
 }
 td {
   border-bottom-width: 0;

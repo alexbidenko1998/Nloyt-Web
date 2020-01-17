@@ -20,14 +20,33 @@ button {
   font-style: normal;
   font-weight: normal;
   font-size: 13px;
-  line-height: 15px;
   letter-spacing: 0.01em;
   text-align: center;
   color: #333333;
+  height: 38px;
+  line-height: 38px;
 }
 .btn-success {
   margin-left: 15px;
 }
 mat-icon {
   width: 12px;
+}
+.take-now {
+  height: 38px;
+  font-size: 14px;
+  line-height: 38px;
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 900;
+  color: #6BA30F;
+  border: 1px solid #6BA30F;
+  box-sizing: border-box;
+  border-radius: 6px;
+
+  transition: background-color, color .15s;
+}
+.take-now:hover {
+  color: white;
+  background-color: #6BA30F;
 }

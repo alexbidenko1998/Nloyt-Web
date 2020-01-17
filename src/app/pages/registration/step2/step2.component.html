@@ -2,12 +2,12 @@
   <form class="row" [formGroup]="uploadForm">
     <div class="col-12 col-md-4">
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование юридического лица"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.legal_entity_name' | translate}}"
                formControlName="legalEntityName" required
                [class.is-invalid]="uploadForm.get('legalEntityName').invalid && uploadForm.get('legalEntityName').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Регистрационный номер юр. лица"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.legal_entity_number' | translate}}"
                formControlName="legalEntityNumber" required
                [class.is-invalid]="uploadForm.get('legalEntityNumber').invalid && uploadForm.get('legalEntityNumber').touched">
       </div>
@@ -15,22 +15,22 @@
         <label class="form-group form-check checkbox-container">
           <input type="checkbox" class="form-check-input" id="officialDealer" formControlName="isOfficialDealer">
           <span class="checkmark"></span>
-          <label class="form-check-label ml-0" for="officialDealer">Официальный дилер марки</label>
+          <label class="form-check-label ml-0" for="officialDealer">{{'other.registration.step_2.official_dealer' | translate}}</label>
         </label>
         <label class="form-group form-check checkbox-container">
           <input type="checkbox" class="form-check-input" id="inHolding" formControlName="isInHolding">
           <span class="checkmark"></span>
-          <label class="form-check-label ml-0" for="inHolding">Компания в рамках холдинга</label>
-          <small class="form-text text-muted">Уточните, возможно кто-то из Ваших коллег уже создал профайл сети Ваших СЦ</small>
+          <label class="form-check-label ml-0" for="inHolding">{{'other.registration.step_2.in_holding' | translate}}</label>
+          <small class="form-text text-muted">{{'other.registration.step_2.in_holding_hint' | translate}}</small>
         </label>
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование головного холдинга"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.holding_name' | translate}}"
                formControlName="holdingName" required
                [class.is-invalid]="uploadForm.get('holdingName').invalid && uploadForm.get('holdingName').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Интернет сайт головного холдинга"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.holding_site' | translate}}"
                formControlName="holdingSite" required
                [class.is-invalid]="uploadForm.get('holdingSite').invalid && uploadForm.get('holdingSite').touched">
       </div>
@@ -38,32 +38,32 @@
 
     <div class="col-12 col-md-4">
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Наименование сервисного центра (СЦ) (если отличается от юр. лица)"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.service_name' | translate}}"
                formControlName="serviceName" required
                [class.is-invalid]="uploadForm.get('serviceName').invalid && uploadForm.get('serviceName').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Фактический адрес СЦ"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.service_address' | translate}}"
                formControlName="serviceAddress" required (input)="addressValidator()"
                [class.is-invalid]="(uploadForm.get('serviceAddress').invalid || !isValidAddress) && uploadForm.get('serviceAddress').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center w-100" placeholder="Телефон СЦ"
-               formControlName="servicePhone" required id="phone"
+        <input type="text" class="form-control rounded-0 text-center w-100" placeholder="{{'other.registration.step_2.service_phone' | translate}}"
+               formControlName="servicePhone" required id="phone" style="padding-right: 52px;"
                [class.is-invalid]="uploadForm.get('servicePhone').invalid && uploadForm.get('servicePhone').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Время работы СЦ"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.service_time' | translate}}"
                formControlName="serviceTime" required
                [class.is-invalid]="uploadForm.get('serviceTime').invalid && uploadForm.get('serviceTime').touched">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 text-center" placeholder="Интернет сайт СЦ"
+        <input type="text" class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.service_site' | translate}}"
                formControlName="serviceSite" required
                [class.is-invalid]="uploadForm.get('serviceSite').invalid && uploadForm.get('serviceSite').touched">
       </div>
       <div class="form-group" [class.is-invalid]="uploadForm.get('autoMarks').invalid && uploadForm.get('autoMarks').touched">
-        <select multiple class="form-control rounded-0 text-center" size="1" title="Марки обслуживаемых автомобилей"
+        <select multiple class="form-control rounded-0 text-center" size="1" title="{{'other.registration.step_2.auto_marks' | translate}}"
                 formControlName="autoMarks" required id="autoMarks">
           <option>Японские</option>
           <option>Немецкие</option>
@@ -74,7 +74,7 @@
         </select>
       </div>
       <div class="form-group" [class.is-invalid]="uploadForm.get('equipmentsAndSoftware').invalid && uploadForm.get('equipmentsAndSoftware').touched">
-        <select multiple class="form-control rounded-0 text-center" size="1" title="Диагностическое оборудование / ПО"
+        <select multiple class="form-control rounded-0 text-center" size="1" title="{{'other.registration.step_2.equipments_and_software' | translate}}"
                 formControlName="equipmentsAndSoftware" required id="equipmentsAndSoftware">
           <option>BOSCH</option>
           <option>Vector</option>
@@ -91,7 +91,7 @@
              [class.is-invalid]="uploadForm.get('servicePhotos').invalid && uploadForm.get('servicePhotos').touched">
         <div class="row" style="min-height: 92px;">
           <div class="col-8 text-center position-relative" style="min-height: 92px;">
-            <span class="position-absolute w-100 px-3" style="top: 50%; transform: translateY(-50%); left: 0;">Добавить фотографии СЦ</span>
+            <span class="position-absolute w-100 px-3" style="top: 50%; transform: translateY(-50%); left: 0;">{{'other.registration.step_2.photos' | translate}}</span>
             <div class="service-photo" id="photo1" style="top: 0; height: 100%;"></div>
           </div>
           <div class="col-4 border-left p-0 position-relative">
@@ -103,18 +103,14 @@
         <input type="file" multiple accept="image/*" class="d-none" id="servicePhotos" name="servicePhotos[]" formControlName="servicePhotos" (change)="changeImage($event)">
       </label>
       <div class="form-group">
-        <textarea class="form-control rounded-0 text-center" placeholder="Workshop description (optional)" style="min-height: 92px;"
+        <textarea class="form-control rounded-0 text-center" placeholder="{{'other.registration.step_2.description' | translate}}" style="min-height: 92px;"
                   formControlName="description" [class.is-invalid]="uploadForm.get('description').invalid && uploadForm.get('description').touched"></textarea>
       </div>
-      <small class="form-text text-muted mb-3" style="min-height: 92px; font-size: 60%;">
-        Один ресивер выводит в онлайн одно диагностическое оборудование.
-        Параллельная работа нескольких диагностических устройств на одном ресивере невозможна.
-        Для работы с двух рабочих мест инженеров диагностов необходима установка второго ресивера.
-      </small>
+      <small class="form-text text-muted mb-3" style="min-height: 92px; font-size: 60%;">{{'other.registration.step_2.description_hint' | translate}}</small>
       <div class="form-group">
         <div class="input-group form-group mb-2">
           <div class="input-group-prepend col-8 p-0">
-            <div class="input-group-text rounded-0 w-100" style="background: transparent;">Количество ресиверов</div>
+            <div class="input-group-text rounded-0 w-100" style="background: transparent;">{{'other.registration.step_2.receivers_count' | translate}}</div>
           </div>
           <input type="number" class="form-control rounded-0 text-center col-4" min="0" step="1"
                  formControlName="receiversCount" required
@@ -129,20 +125,20 @@
                formControlName="agreeWithCloudService" required
                [class.is-invalid]="uploadForm.get('agreeWithCloudService').invalid && uploadForm.get('agreeWithCloudService').touched">
         <span class="checkmark"></span>
-        <label class="form-check-label ml-0" for="agreeWithCloudService">Согласен с условиями использования NLOYT SaaS Cloud Service / условиями договора-оферты</label>
+        <label class="form-check-label ml-0" for="agreeWithCloudService">{{'other.registration.step_2.agree_with_cloud_service' | translate}}</label>
       </label>
       <label class="form-group form-check checkbox-container">
         <input type="checkbox" class="form-check-input" id="agreeWithNVCD"
                formControlName="agreeWithNVCD" required
                [class.is-invalid]="uploadForm.get('agreeWithNVCD').invalid && uploadForm.get('agreeWithNVCD').touched">
         <span class="checkmark"></span>
-        <label class="form-check-label ml-0" for="agreeWithNVCD">Согласен с условиями эксплуатации NLOYT NVCD-R и условиями доставки</label>
+        <label class="form-check-label ml-0" for="agreeWithNVCD">{{'other.registration.step_2.agree_with_nvcd' | translate}}</label>
       </label>
 
       <div class="d-inline-block" style="float: right;">
-        <button type="button" class="btn btn-outline-secondary rounded-0 px-5">Save</button>
+        <button type="button" class="btn btn-outline-secondary rounded-0 px-5">{{'other.registration.step_2.save' | translate}}</button>
         <input type="submit" class="d-none">
-        <button type="button" class="btn btn-success rounded-0 ml-3 px-4" (click)="makeSubmit()">Save and Submit</button>
+        <button type="button" class="btn btn-success rounded-0 ml-3 px-4" (click)="makeSubmit()">{{'other.registration.step_2.save_and_submit' | translate}}</button>
       </div>
     </div>
   </form>

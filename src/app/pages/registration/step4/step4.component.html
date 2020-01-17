@@ -1,25 +1,25 @@
 <div class="container-fluid px-5">
-  <p class="text-start-info">
-    Сформируйте перечень онлайн услуг на базе Вашего диагностического оборудования, определите стоимость услуг и их продолжительность. <br>
-    Выберете наименования из имеющегося справочника. В случае отсутствия предлагаемой Вами услаги, создайте дополнительный перечень, с указанием всей необходимой информации. <br>
-    В случае необходимости добавления готовых справочников услуг, воспользуйтесь инструментом mass additions (см. pop-up list)
-  </p>
+  <p class="text-start-info">{{'other.registration.step_4.start_info' | translate}}</p>
 
-  <button class="btn btn-outline-secondary py-1" (click)="cloneNewRow()"><i class="material-icons left">add</i>Добавить</button>
-  <button class="btn btn-outline-secondary py-1" (click)="removeRow()"><i class="material-icons left">close</i>Удалить</button>
+  <button class="btn btn-outline-secondary py-1 mr-2" (click)="cloneNewRow()"><i class="material-icons left">add</i>
+    {{'other.registration.step_4.add' | translate}}
+  </button>
+  <button class="btn btn-outline-secondary py-1" (click)="removeRow()"><i class="material-icons left">close</i>
+    {{'other.registration.step_4.delete' | translate}}
+  </button>
 </div>
 
 <table class="table custom-table mt-3">
   <thead>
   <tr>
-    <th scope="col">Код</th>
-    <th scope="col">Наименование</th>
-    <th scope="col">Продолжительность</th>
-    <th scope="col">Стоимость</th>
-    <th scope="col">Фото</th>
-    <th scope="col">Оборудование</th>
-    <th scope="col">Автомобиль</th>
-    <th scope="col">Описание услуги</th>
+    <th scope="col">{{'other.registration.step_4.code' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.name' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.duration' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.price' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.photo' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.equipment' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.car' | translate}}</th>
+    <th scope="col">{{'other.registration.step_4.description' | translate}}</th>
   </tr>
   </thead>
   <tbody>
@@ -61,6 +61,10 @@
 </table>
 
 <div class="d-inline-block right px-2 pb-5">
-  <button class="btn btn-outline-secondary rounded-0 px-5" (click)="router.navigateByUrl('registration/5')">Save</button>
-  <button class="btn btn-success rounded-0 px-5" (click)="router.navigateByUrl('registration/5')">Save and Submit</button>
+  <button class="btn btn-outline-secondary rounded-0 px-5" (click)="router.navigateByUrl('registration/5')">
+    {{'other.registration.step_4.save' | translate}}
+  </button>
+  <button class="btn btn-success rounded-0 px-5 ml-2" (click)="router.navigateByUrl('registration/5')">
+    {{'other.registration.step_4.save_and_submit' | translate}}
+  </button>
 </div>

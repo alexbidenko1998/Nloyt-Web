@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{title}}</h2>
 
 <mat-dialog-actions class="pb-3">
-  <a class="mat-raised-button ml-auto outline-0" (click)="close(); dialogRef.close();">No</a>
-  <a class="mat-raised-button ml-2 outline-0" style="background-color: green; color: white;" (click)="confirm(); dialogRef.close();">Yes</a>
+  <a class="mat-raised-button ml-auto outline-0" (click)="close(); dialogRef.close();">{{ 'service.modal.no' | translate }}</a>
+  <a class="mat-raised-button ml-2 outline-0" style="background-color: green; color: white;" (click)="confirm(); dialogRef.close();">{{ 'service.modal.yes' | translate }}</a>
 </mat-dialog-actions>

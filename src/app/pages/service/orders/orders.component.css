@@ -1,6 +1,9 @@
 button {
   outline: none;
 }
+.card-number {
+  font-size: 26px!important;
+}
 .row-active {
   background-color: rgba(107, 163, 15, 0.2);
 }
@@ -25,12 +28,7 @@ button {
   transition-property: background, z-index;
   transition-duration: 3s;
 }
-*[mat-row] {
-  cursor: pointer;
-
-  transition: box-shadow .3s;
-}
-*[mat-row]:not(.row-accept-now):hover {
+.table-hovered-row *[mat-row]:not(.row-accept-now):hover {
   transform: scale(1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -44,4 +42,14 @@ button {
   height: 19px;
   display: block;
   border-radius: 50%;
+}
+.search-icon {
+  position: absolute;
+  margin-top: -18px;
+  color: #DDDDDD;
+  bottom: 2px;
+  font-size: 20px;
+}
+.mat-cell {
+  padding-bottom: 4px;
 }
